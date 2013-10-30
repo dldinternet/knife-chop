@@ -19,10 +19,6 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".document",
-    ".rspec",
-    ".ruby-gemset",
-    ".ruby-version",
     "Gemfile",
     "LICENSE.txt",
     "README.rdoc",

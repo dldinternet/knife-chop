@@ -21,6 +21,3 @@ group :development do
   gem "jeweler", "~> 1.8.8"
 #  gem "rcov", ">= 0"
 end
-
-gem.files.exclude '.ruby-*'
-gem.files.exclude '.idea/**'
