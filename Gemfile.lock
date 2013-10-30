@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.1.0)
+    knife-chop (0.1.1)
       awesome_print
       chef (~> 11.6.2)
       colorize
@@ -10,6 +10,7 @@ PATH
       knife-chop
       knife-ec2
       logging
+      mixlib-config (~> 1.1, >= 1.1.2)
       unf
 
 GEM
