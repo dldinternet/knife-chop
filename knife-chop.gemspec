@@ -12,14 +12,19 @@ Gem::Specification.new do |s|
   s.authors = ["Christo De Lange"]
   s.date = "2013-10-30"
   s.description = "Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions."
-  s.email = "opscode@dldinternet.com"
+  s.email = "rubygems@dldinternet.com"
   s.executables = ["chop"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
   s.files = [
+    ".document",
+    ".rspec",
+    ".ruby-gemset",
+    ".ruby-version",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -45,6 +50,30 @@ Gem::Specification.new do |s|
     "lib/chef/knife/chop_translate.rb",
     "lib/chef/knife/chop_upload.rb",
     "lib/knife-chop/version.rb",
+    "lib/ruby-beautify/Gemfile",
+    "lib/ruby-beautify/LICENSE",
+    "lib/ruby-beautify/README.md",
+    "lib/ruby-beautify/RELEASE.md",
+    "lib/ruby-beautify/Rakefile",
+    "lib/ruby-beautify/bin/rbeautify",
+    "lib/ruby-beautify/lib/beautifier.rb",
+    "lib/ruby-beautify/lib/ruby-beautify.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/block_end.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/block_matcher.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/block_start.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/config/ruby.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/language.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/line.rb",
+    "lib/ruby-beautify/lib/ruby-beautify/version.rb",
+    "lib/ruby-beautify/ruby-beautify.gemspec",
+    "lib/ruby-beautify/spec/fixtures/ruby.yml",
+    "lib/ruby-beautify/spec/rbeautify/block_matcher_spec.rb",
+    "lib/ruby-beautify/spec/rbeautify/block_start_spec.rb",
+    "lib/ruby-beautify/spec/rbeautify/config/ruby_spec.rb",
+    "lib/ruby-beautify/spec/rbeautify/line_spec.rb",
+    "lib/ruby-beautify/spec/rbeautify_spec.rb",
+    "lib/ruby-beautify/spec/spec_helper.rb",
+    "spec/knife-chop_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/dldinternet/knife-chop"
@@ -53,23 +82,24 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.1.5"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
 
-  s.add_dependency(%q<chef>, [">= 11.6.2"])
-  s.add_dependency(%q<json>, [">= 1.4.4", "<= 1.7.7"])
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<knife-chop>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.14"])
       s.add_development_dependency(%q<rake>, ["~> 10.1"])
       s.add_development_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_development_dependency(%q<jeweler>, [">= 1.8.8"])
     else
+      s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.14"])
       s.add_dependency(%q<rake>, ["~> 10.1"])
       s.add_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_dependency(%q<jeweler>, [">= 1.8.8"])
     end
   else
+    s.add_dependency(%q<knife-chop>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.14"])
     s.add_dependency(%q<rake>, ["~> 10.1"])
     s.add_dependency(%q<sdoc>, ["~> 0.3"])
