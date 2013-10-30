@@ -19,7 +19,7 @@ Jeweler::Tasks.new do |gem|
   gem.license = "MIT"
   gem.summary = %Q{Knife plugin to ease the upload and sync of Chef server assets}
   gem.description = %Q{Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions.}
-  gem.email = "opscode@dldinternet.com"
+  gem.email = "rubygems@dldinternet.com"
   gem.authors = ["Christo De Lange"]
   # dependencies defined in Gemfile
 end

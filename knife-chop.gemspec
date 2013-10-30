@@ -49,72 +49,7 @@ Gem::Specification.new do |s|
     "lib/chef/knife/chop_base.rb",
     "lib/chef/knife/chop_translate.rb",
     "lib/chef/knife/chop_upload.rb",
-    "lib/eden/CHANGELOG",
-    "lib/eden/LICENSE",
-    "lib/eden/README.md",
-    "lib/eden/Rakefile",
-    "lib/eden/bin/eden",
-    "lib/eden/lib/eden.rb",
-    "lib/eden/lib/eden/defaults.rb",
-    "lib/eden/lib/eden/formatter.rb",
-    "lib/eden/lib/eden/formatters/block_formatter.rb",
-    "lib/eden/lib/eden/formatters/indenter.rb",
-    "lib/eden/lib/eden/formatters/white_space_cleaner.rb",
-    "lib/eden/lib/eden/line.rb",
-    "lib/eden/lib/eden/parser.rb",
-    "lib/eden/lib/eden/source.rb",
-    "lib/eden/lib/eden/source_file.rb",
-    "lib/eden/lib/eden/token.rb",
-    "lib/eden/lib/eden/tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/basic_tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/delimited_literal_tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/number_tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/operator_tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/regex_tokenizer.rb",
-    "lib/eden/lib/eden/tokenizers/string_tokenizer.rb",
-    "lib/eden/test/array_literal_tokenization_test.rb",
-    "lib/eden/test/basic_tokenization_test.rb",
-    "lib/eden/test/block_formatter_test.rb",
-    "lib/eden/test/class_var_token_test.rb",
-    "lib/eden/test/identifier_token_test.rb",
-    "lib/eden/test/indenter_test.rb",
-    "lib/eden/test/instance_var_token_test.rb",
-    "lib/eden/test/number_tokenization_test.rb",
-    "lib/eden/test/operator_tokenization_test.rb",
-    "lib/eden/test/regex_tokenization_test.rb",
-    "lib/eden/test/single_character_tokenization_test.rb",
-    "lib/eden/test/string_tokenization_test.rb",
-    "lib/eden/test/symbol_tokenization_test.rb",
-    "lib/eden/test/test_helper.rb",
-    "lib/eden/test/white_space_cleaner_test.rb",
-    "lib/eden/test/whitespace_token_test.rb",
-    "lib/knife-chop.rb",
     "lib/knife-chop/version.rb",
-    "lib/knife-chop_version.rb",
-    "lib/ruby-beautify/Gemfile",
-    "lib/ruby-beautify/LICENSE",
-    "lib/ruby-beautify/README.md",
-    "lib/ruby-beautify/RELEASE.md",
-    "lib/ruby-beautify/Rakefile",
-    "lib/ruby-beautify/bin/rbeautify",
-    "lib/ruby-beautify/lib/beautifier.rb",
-    "lib/ruby-beautify/lib/ruby-beautify.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_end.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_matcher.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_start.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/config/ruby.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/language.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/line.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/version.rb",
-    "lib/ruby-beautify/ruby-beautify.gemspec",
-    "lib/ruby-beautify/spec/fixtures/ruby.yml",
-    "lib/ruby-beautify/spec/rbeautify/block_matcher_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/block_start_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/config/ruby_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/line_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify_spec.rb",
-    "lib/ruby-beautify/spec/spec_helper.rb",
-    "spec/knife-chop_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/dldinternet/knife-chop"
@@ -127,20 +62,17 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<knife-chop>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.14"])
       s.add_development_dependency(%q<rake>, ["~> 10.1"])
       s.add_development_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_development_dependency(%q<jeweler>, [">= 1.8.8"])
     else
-      s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.14"])
       s.add_dependency(%q<rake>, ["~> 10.1"])
       s.add_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_dependency(%q<jeweler>, [">= 1.8.8"])
     end
   else
-    s.add_dependency(%q<knife-chop>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.14"])
     s.add_dependency(%q<rake>, ["~> 10.1"])
     s.add_dependency(%q<sdoc>, ["~> 0.3"])

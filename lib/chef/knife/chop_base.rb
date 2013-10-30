@@ -16,7 +16,6 @@
 # limitations under the License.
 #
 
-require 'knife-chop_version'
 require "awesome_print"
 require 'chef/knife'
 require 'chef/knife/chop/logging'
