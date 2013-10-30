@@ -133,14 +133,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_development_dependency(%q<jeweler>, [">= 1.8.8"])
     else
-      s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.14"])
       s.add_dependency(%q<rake>, ["~> 10.1"])
       s.add_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_dependency(%q<jeweler>, [">= 1.8.8"])
     end
   else
-    s.add_dependency(%q<knife-chop>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.14"])
     s.add_dependency(%q<rake>, ["~> 10.1"])
     s.add_dependency(%q<sdoc>, ["~> 0.3"])
