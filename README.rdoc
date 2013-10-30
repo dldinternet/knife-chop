@@ -1,6 +1,9 @@
 = knife-chop
 
-Description goes here.
+Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions.
+
+== Version
+{<img src="https://badge.fury.io/rb/knife-chop.png" alt="Gem Version" />}[http://badge.fury.io/rb/knife-chop]
 
 == Contributing to knife-chop
  
