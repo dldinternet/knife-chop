@@ -20,11 +20,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".rspec",
-    ".ruby-gemset",
-    ".ruby-version",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -49,7 +45,7 @@ Gem::Specification.new do |s|
     "lib/chef/knife/chop_base.rb",
     "lib/chef/knife/chop_translate.rb",
     "lib/chef/knife/chop_upload.rb",
-    "lib/knife-chop/version.rb",
+    "lib/chef/knife/chop/version.rb",
     "lib/ruby-beautify/Gemfile",
     "lib/ruby-beautify/LICENSE",
     "lib/ruby-beautify/README.md",
@@ -82,24 +78,22 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.1.5"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
 
+  s.add_dependency(%q<chef>, ["~> 11.6.2"])
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<knife-chop>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.14"])
       s.add_development_dependency(%q<rake>, ["~> 10.1"])
       s.add_development_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_development_dependency(%q<jeweler>, [">= 1.8.8"])
     else
-      s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.14"])
       s.add_dependency(%q<rake>, ["~> 10.1"])
       s.add_dependency(%q<sdoc>, ["~> 0.3"])
       s.add_dependency(%q<jeweler>, [">= 1.8.8"])
     end
   else
-    s.add_dependency(%q<knife-chop>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.14"])
     s.add_dependency(%q<rake>, ["~> 10.1"])
     s.add_dependency(%q<sdoc>, ["~> 0.3"])

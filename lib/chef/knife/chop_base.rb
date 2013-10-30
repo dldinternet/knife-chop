@@ -18,6 +18,7 @@
 
 require "awesome_print"
 require 'chef/knife'
+require 'chef/knife/chop/version'
 require 'chef/knife/chop/logging'
 require 'chef/knife/chop/errors'
 require 'logging'
