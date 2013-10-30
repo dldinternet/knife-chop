@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+# Borrowing from "whiches" gem ...
+cmd  = 'knife'
+exes = []
+exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+  exts.each { |ext|
+    exe = File.join(path, "#{cmd}#{ext}")
+    exes << exe if File.executable? exe
+  }
+end
+path = if exes.size > 0
+         File.dirname(exes[0])
+       else
+         File.dirname(__FILE__)
+       end
+
+$:.unshift(File.expand_path(File.join(path, "..", "lib")))
+require 'chef/application/knife'
+require 'chef/knife/bootstrap'
+
+# If it is translate,upload we will let the uploader do the heavy lifting
+verb = 'upload'
+me   = 'chop' # File.basename(__FILE__)
+act  = false
+ARGV.each{|w|
+  if w.match(%r(^--action$))
+    act = true
+  else
+    case w
+      when 'upload'
+        verb = w
+      when 'translate'
+        verb = w
+      else
+        if act
+          aw = w.split(%r([:,]))
+          verb = aw[0] if aw
+        end
+    end
+  end
+}
+ARGV.unshift verb unless ARGV[0] == verb
+ARGV.unshift me
+Chef::Application::Knife.new.run

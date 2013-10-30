@@ -47,3 +47,11 @@ pkg
 
 # For rubinius:
 #*.rbc
+
+# JetBrains IDE
+.idea
+
+# RVM
+.rvmrc
+.ruby-version
+.ruby-gemset
