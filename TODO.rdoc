@@ -1,0 +1,46 @@
+= knife-chop:TODO list
+
+* Fix some of the small things exhibited in this run
+
+ STEP: Resource 1: Upload environments ...
+ WARN: Ignoring webDev.json
+ WARN: Ignoring webDevInt.json
+ WARN: Ignoring webQA.json
+ WARN: Ignoring webQAInt.json
+ STEP: Updated Environment webDev
+ STEP: Updated Environment webDevInt
+ STEP: Updated Environment webQA
+ STEP: Updated Environment webQAInt
+ STEP: Updated Environment webProd
+ STEP: Resource 2: Upload roles ...
+ STEP: Updated Role webBase!
+ STEP: Updated Role webChef!
+ STEP: Updated Role webDrupalAny!
+ STEP: Updated Role webDrupalFS!
+ STEP: Updated Role webDrupalRebootSupport!
+ STEP: Updated Role webDrupalSI!
+ STEP: Updated Role webIngester!
+ STEP: Updated Role webUGCDrupal!
+ STEP: Updated Role webUGCDrupalPerf!
+ STEP: Updated Role webUGCDrupalSI!
+ STEP: Updated Role webUGCDrupalSIPerf!
+ STEP: Updated Role webVPCGatewayNonProd!
+ STEP: Updated Role webVPCGatewayProd!
+ STEP: Resource 3: Upload data bags ...
+=== Data bags typically don't have rb versions so the precedence set for them should exclude the 'rb'
+ WARN: 'rb' set is empty! (No data_bags/aws/*.rb files found using precedence ["json", "rb"])
+ WARN: 'rb' set is empty! (No data_bags/users/*.rb files found using precedence ["json", "rb"])
+ STEP: Resource 4: Upload cookbooks ...
+=== The environment the cookbooks are being uploaded to ? Dependencies off?
+ STEP: Uploading role           [1.0.11]
+ STEP: Uploaded 1 cookbook.
+ STEP: Uploading role           [1.0.11]
+ STEP: Uploaded 1 cookbook.
+ STEP: Uploading role           [1.0.11]
+ STEP: Uploaded 1 cookbook.
+ STEP: Uploading role           [1.0.11]
+ STEP: Uploaded 1 cookbook.
+ STEP: Uploading role           [1.0.11]
+ STEP: Uploaded 1 cookbook.
+
+:doc:

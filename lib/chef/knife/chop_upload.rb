@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'chef/exceptions'
 require 'chef/knife/chop_base'
 require 'chef/knife/chop_translate' # Because knife chop upload --action translate ...
 
@@ -92,7 +93,13 @@ class Chef
         else
           set.each{ |name,file|
             cmd = callCmdProc(filp, cmd, name, file)
-            @logger.info "#{File.basename(file)} ... #{cmd}"
+						fLog = false
+            if rsrc == 'cookbook'
+	            fLog = @logger.info "#{args[:environment]}:#{File.basename(file)} (Dependencies: #{@config[:depends]})"
+	          else
+	            fLog = @logger.info File.basename(file)
+	          end
+	          @logger.debug "... #{cmd}" if fLog
             if @use_knife_api
               unless @config[:dry_run]
                 subc.name_args = rsrc == 'cookbook' ? [ name ] : [ file ]
@@ -183,7 +190,7 @@ class Chef
             s = "#{cbcmd} -E #{name} #{@config[:depends] ? '--include-dependencies' : ''} #{cbname}"
             s
           }
-          uploadSet(cookbooks, :resource => 'cookbook', :verb => 'upload', :command => cmdp, :fileproc => filp)
+          uploadSet(cookbooks, :resource => 'cookbook', :verb => 'upload', :command => cmdp, :fileproc => filp, :environment => name)
         }
       end
 

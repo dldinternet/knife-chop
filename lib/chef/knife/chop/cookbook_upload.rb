@@ -71,7 +71,7 @@ class ::Chef::Knife::CookbookUpload
       end
       begin
         upload(cbs, justify_width)
-      rescue Exceptions::CookbookFrozen
+      rescue ::Chef::Exceptions::CookbookFrozen
         ui.warn("Not updating version constraints for some cookbooks in the environment as the cookbook is frozen.")
       end
       ui.info("Uploaded all cookbooks.")
@@ -88,12 +88,12 @@ class ::Chef::Knife::CookbookUpload
           upload([cookbook], justify_width)
           upload_ok += 1
           version_constraints_to_update[cookbook_name] = cookbook.version
-        rescue Exceptions::CookbookNotFoundInRepo => e
+        rescue ::Chef::Exceptions::CookbookNotFoundInRepo => e
           upload_failures += 1
           ui.error("Could not find cookbook #{cookbook_name} in your cookbook path, skipping it")
           Log.debug(e)
           upload_failures += 1
-        rescue Exceptions::CookbookFrozen
+        rescue ::Chef::Exceptions::CookbookFrozen
           ui.warn("Not updating version constraints for #{cookbook_name} in the environment as the cookbook is frozen.")
           upload_failures += 1
         end
@@ -133,8 +133,8 @@ class ::Chef::Knife::CookbookUpload
       check_for_broken_links!(cb)
       check_for_dependencies!(cb)
     end
-    Chef::CookbookUploader.new(cookbooks, config[:cookbook_path], :force => config[:force]).upload_cookbooks
-  rescue Chef::Exceptions::CookbookFrozen => e
+    ::Chef::CookbookUploader.new(cookbooks, config[:cookbook_path], :force => config[:force]).upload_cookbooks
+  rescue ::Chef::Exceptions::CookbookFrozen => e
     ui.error e
     raise
   end

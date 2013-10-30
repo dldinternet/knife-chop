@@ -266,10 +266,6 @@ class Chef
                   :long         => "--[no-]include-dependencies [yes|no|true|false|0|1|enable|disable]",
                   :description  => "Include Cookbook dependencies?, Default --include-dependencies or -I [1|yes|enable|true]",
                   :default      => true
-                  #:boolean      => true,
-                  #:proc         => lambda{ |v|
-                  #  v
-                  #}
           option  :dry_run,
                   :short        => "-n",
                   :long         => "--[no-]dry-run",
@@ -354,11 +350,6 @@ class Chef
                  :boolean => true,
                  :description => "Update cookbook versions even if they have been frozen"
 
-          #option :depends,
-          #       :short => "-d",
-          #       :long => "--include-dependencies",
-          #       :description => "Also upload cookbook dependencies"
-
           # ------------------------------------------------------------------------------------------------------------
           # Data bags
           # ------------------------------------------------------------------------------------------------------------
@@ -433,7 +424,7 @@ class Chef
 
         @config = parse_and_validate_options(@config,source ? source : "ARGV - #{__LINE__}")
         v = @config[:depends]
-        @config[:depends] = !((v === true) || ((v.is_a?(String) && v.downcase.match(%r/^(no|false|disable|0)/) ).nil? ? false : true))
+        @config[:depends] = (v === true) || ((v.is_a?(String) && v.downcase.match(%r/^(no|false|disable|0)/) ).nil? ? false : true)
 
         unless @config[:actions]
           @config[:actions] = [ argv[1].to_sym ] # self.class.name.gsub(%r(Chef::Knife::Chop), '').downcase
