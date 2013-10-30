@@ -19,12 +19,7 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".document",
-    ".rspec",
-    ".ruby-gemset",
-    ".ruby-version",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -58,6 +53,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.1.5"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
 
+  s.add_dependency(%q<chef>, [">= 11.6.2"])
+  s.add_dependency(%q<json>, [">= 1.4.4", "<= 1.7.7"])
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
