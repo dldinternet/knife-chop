@@ -6,7 +6,7 @@
 
 Gem::Specification.new do |s|
   s.name = "knife-chop"
-  s.version = "0.2.4"
+  s.version = "0.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christo De Lange"]
@@ -92,10 +92,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<chef>, ["~> 11.6.2"])
       s.add_runtime_dependency(%q<unf>, [">= 0"])
       s.add_runtime_dependency(%q<knife-ec2>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
     else
       s.add_dependency(%q<awesome_print>, [">= 0"])
       s.add_dependency(%q<colorize>, [">= 0"])
@@ -106,10 +102,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<chef>, ["~> 11.6.2"])
       s.add_dependency(%q<unf>, [">= 0"])
       s.add_dependency(%q<knife-ec2>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
-      s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
-      s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
     s.add_dependency(%q<awesome_print>, [">= 0"])
@@ -121,10 +113,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<chef>, ["~> 11.6.2"])
     s.add_dependency(%q<unf>, [">= 0"])
     s.add_dependency(%q<knife-ec2>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
-    s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
-    s.add_dependency(%q<rspec>, [">= 0"])
   end
 end
 
