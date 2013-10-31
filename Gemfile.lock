@@ -2,15 +2,6 @@ PATH
   remote: .
   specs:
     knife-chop (0.3.4)
-      awesome_print
-      chef (~> 11.6.2)
-      colorize
-      inifile
-      json (>= 1.4.4, <= 1.7.7)
-      knife-ec2
-      logging
-      mixlib-config (>= 1.1.2)
-      unf
 
 GEM
   remote: http://rubygems.org/

@@ -79,42 +79,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "2.1.5"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
-  s.executables  = %w( chop )
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 4
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<awesome_print>, [">= 0"])
-      s.add_runtime_dependency(%q<colorize>, [">= 0"])
-      s.add_runtime_dependency(%q<logging>, [">= 0"])
-      s.add_runtime_dependency(%q<inifile>, [">= 0"])
-      s.add_runtime_dependency(%q<json>, ["<= 1.7.7", ">= 1.4.4"])
-      s.add_runtime_dependency(%q<mixlib-config>, [">= 1.1.2"])
-      s.add_runtime_dependency(%q<chef>, ["~> 11.6.2"])
-      s.add_runtime_dependency(%q<unf>, [">= 0"])
-      s.add_runtime_dependency(%q<knife-ec2>, [">= 0"])
-    else
-      s.add_dependency(%q<awesome_print>, [">= 0"])
-      s.add_dependency(%q<colorize>, [">= 0"])
-      s.add_dependency(%q<logging>, [">= 0"])
-      s.add_dependency(%q<inifile>, [">= 0"])
-      s.add_dependency(%q<json>, ["<= 1.7.7", ">= 1.4.4"])
-      s.add_dependency(%q<mixlib-config>, [">= 1.1.2"])
-      s.add_dependency(%q<chef>, ["~> 11.6.2"])
-      s.add_dependency(%q<unf>, [">= 0"])
-      s.add_dependency(%q<knife-ec2>, [">= 0"])
-    end
-  else
-    s.add_dependency(%q<awesome_print>, [">= 0"])
-    s.add_dependency(%q<colorize>, [">= 0"])
-    s.add_dependency(%q<logging>, [">= 0"])
-    s.add_dependency(%q<inifile>, [">= 0"])
-    s.add_dependency(%q<json>, ["<= 1.7.7", ">= 1.4.4"])
-    s.add_dependency(%q<mixlib-config>, [">= 1.1.2"])
-    s.add_dependency(%q<chef>, ["~> 11.6.2"])
-    s.add_dependency(%q<unf>, [">= 0"])
-    s.add_dependency(%q<knife-ec2>, [">= 0"])
-  end
 end
 
