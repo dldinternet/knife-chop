@@ -1,14 +1,13 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.1.7)
+    knife-chop (0.1.8)
       awesome_print
       chef (~> 11.6.2)
       colorize
       inifile
       jeweler (~> 1.8.8)
       json (>= 1.4.4, <= 1.7.7)
-      knife-chop
       knife-ec2
       logging
       mixlib-config (>= 1.1.2)

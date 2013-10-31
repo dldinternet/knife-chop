@@ -83,7 +83,6 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<knife-chop>, [">= 0"])
       s.add_runtime_dependency(%q<rake>, [">= 0"])
       s.add_runtime_dependency(%q<awesome_print>, [">= 0"])
       s.add_runtime_dependency(%q<colorize>, [">= 0"])
@@ -100,7 +99,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
     else
-      s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<awesome_print>, [">= 0"])
       s.add_dependency(%q<colorize>, [">= 0"])
@@ -118,7 +116,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
     end
   else
-    s.add_dependency(%q<knife-chop>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<awesome_print>, [">= 0"])
     s.add_dependency(%q<colorize>, [">= 0"])
