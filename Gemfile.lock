@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.3.5)
+    knife-chop (0.3.6)
 
 GEM
   remote: http://rubygems.org/
