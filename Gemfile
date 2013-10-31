@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 gemspec
 ## Add dependencies required to use your gem here.
+gem 'rake'
 gem 'awesome_print'
 gem 'colorize'
 gem 'logging'
@@ -10,6 +11,8 @@ gem 'mixlib-config', '>= 1.1.2'
 gem 'chef', '~> 11.6.2'
 gem 'unf' # For Fog
 gem 'knife-ec2'
+gem "jeweler", "~> 1.8.8"
+gem "rspec"
 #
 ## Add dependencies to develop your gem here.
 ## Include everything needed to run rake, tests, features, etc.
@@ -18,6 +21,6 @@ group :development do
 #  gem "rdoc", "~> 3.12"
 #  gem "cucumber", ">= 0"
 #  gem "bundler", "~> 1.0"
-  gem "jeweler", "~> 1.8.8"
 #  gem "rcov", ">= 0"
+	gem "jeweler", "~> 1.8.8"
 end

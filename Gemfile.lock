@@ -1,13 +1,12 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.1.6)
+    knife-chop (0.1.7)
       awesome_print
       chef (~> 11.6.2)
       colorize
       inifile
       json (>= 1.4.4, <= 1.7.7)
-      knife-chop
       knife-ec2
       logging
       mixlib-config (>= 1.1.2)
@@ -154,7 +153,7 @@ DEPENDENCIES
   knife-ec2
   logging
   mixlib-config (>= 1.1.2)
-  rake (~> 10.1)
-  rspec (~> 2.14)
+  rake
+  rspec
   sdoc (~> 0.3)
   unf
