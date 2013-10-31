@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'rubygems'
+require 'rubygems/package_task'
 require 'bundler'
 begin
   Bundler.setup(:default, :development)
@@ -10,6 +11,22 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
+
+
+Dir[File.expand_path("../*gemspec", __FILE__)].reverse.each do |gemspec_path|
+	gemspec = eval(IO.read(gemspec_path))
+	Gem::PackageTask.new(gemspec).define
+end
+
+require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
+desc "Build it, tag it and ship it"
+task :ship => :gem do
+	sh("git tag #{::Knife::Chop::VERSION}")
+	sh("git push origin --tags")
+	Dir[File.expand_path("../pkg/*.gem", __FILE__)].reverse.each do |built_gem|
+		sh("gem push #{built_gem}")
+	end
+end
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
@@ -52,3 +69,4 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
