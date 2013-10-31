@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.2.9)
+    knife-chop (0.2.11)
       awesome_print
       chef (~> 11.6.2)
       colorize
