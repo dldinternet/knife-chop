@@ -78,6 +78,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "2.1.5"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
+  s.executables  = %w( chop )
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
