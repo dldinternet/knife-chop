@@ -35,7 +35,7 @@ class Chef
                   def #{name}( data = nil, trace = nil )
                     caller = Kernel.caller[3]
                     num = #{num}
-                    unless caller.match(%r(/knife-chop/))
+                    unless caller.match(%r(/chef/knife/chop)) # We assume anything else comes via Chef::Log ...
                       num -= 1
                     end
                     if num >= #{logger.level}
@@ -216,7 +216,7 @@ class Chef
                   :fatal => [:red, :on_white],
                   :todo  => :purple,
               }).scheme
-              scheme['todo']  = "\e[38;5;55m"
+              scheme[:todo]  = "\e[38;5;55m"
               l_opts[:color_scheme] = 'christo'
               layout = ::Logging::Layouts::Pattern.new(l_opts)
 
