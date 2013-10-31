@@ -20,7 +20,9 @@ end
 
 require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
 desc "Build it, tag it and ship it"
-task :ship => :gem do
+task :ship => [:clobber,:gem] do
+	sh("git add -A")
+	sh("git commit -m 'Ship #{::Knife::Chop::VERSION}'")
 	sh("git tag #{::Knife::Chop::VERSION}")
 	sh("git push origin --tags")
 	Dir[File.expand_path("../pkg/*.gem", __FILE__)].reverse.each do |built_gem|
