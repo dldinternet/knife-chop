@@ -7,7 +7,6 @@ PATH
       colorize
       inifile
       json (>= 1.4.4, <= 1.7.7)
-      knife-chop
       knife-ec2
       logging
       mixlib-config (>= 1.1.2)
@@ -131,9 +130,6 @@ GEM
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.4)
     ruby-hmac (0.4.0)
-    sdoc (0.3.20)
-      json (>= 1.1.3)
-      rdoc (~> 3.10)
     systemu (2.5.2)
     unf (0.1.3)
       unf_ext
@@ -155,5 +151,4 @@ DEPENDENCIES
   logging
   mixlib-config (>= 1.1.2)
   rspec
-  sdoc (~> 0.3)
   unf
