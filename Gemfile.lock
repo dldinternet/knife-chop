@@ -6,7 +6,6 @@ PATH
       chef (~> 11.6.2)
       colorize
       inifile
-      jeweler (~> 1.8.8)
       json (>= 1.4.4, <= 1.7.7)
       knife-ec2
       logging
@@ -156,7 +155,5 @@ DEPENDENCIES
   knife-ec2
   logging
   mixlib-config (>= 1.1.2)
-  rake
-  rspec
   sdoc (~> 0.3)
   unf

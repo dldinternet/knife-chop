@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -93,10 +92,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<chef>, ["~> 11.6.2"])
       s.add_runtime_dependency(%q<unf>, [">= 0"])
       s.add_runtime_dependency(%q<knife-ec2>, [">= 0"])
-      s.add_runtime_dependency(%q<jeweler>, ["~> 1.8.8"])
       s.add_runtime_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<sdoc>, ["~> 0.3"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.8"])
     else
       s.add_dependency(%q<rake>, [">= 0"])
@@ -109,10 +106,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<chef>, ["~> 11.6.2"])
       s.add_dependency(%q<unf>, [">= 0"])
       s.add_dependency(%q<knife-ec2>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<sdoc>, ["~> 0.3"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
     end
   else
@@ -126,10 +121,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<chef>, ["~> 11.6.2"])
     s.add_dependency(%q<unf>, [">= 0"])
     s.add_dependency(%q<knife-ec2>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<sdoc>, ["~> 0.3"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.8"])
   end
 end
