@@ -424,7 +424,8 @@ class Chef
 
         @config = parse_and_validate_options(@config,source ? source : "ARGV - #{__LINE__}")
         v = @config[:depends]
-        @config[:depends] = (v === true) || ((v.is_a?(String) && v.downcase.match(%r/^(no|false|disable|0)/) ).nil? ? false : true)
+        m = (v.is_a?(String) && v.downcase.match(%r/^(no|false|disable|0)/) )
+        @config[:depends] = (v === true) || (m.nil? ? true : false)
 
         unless @config[:actions]
           @config[:actions] = [ argv[1].to_sym ] # self.class.name.gsub(%r(Chef::Knife::Chop), '').downcase
