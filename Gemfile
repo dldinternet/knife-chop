@@ -7,7 +7,7 @@ gem 'logging'
 gem 'inifile'
 gem 'json', '>= 1.4.4', '<= 1.7.7'
 gem 'mixlib-config', '>= 1.1.2'
-gem 'chef', '~> 11.6.2'
+gem 'chef', '= 11.6.2'
 gem 'unf' # For Fog
 gem 'knife-ec2'
 #

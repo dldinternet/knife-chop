@@ -141,7 +141,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  chef (~> 11.6.2)
+  chef (= 11.6.2)
   colorize
   inifile
   jeweler (~> 1.8.8)
