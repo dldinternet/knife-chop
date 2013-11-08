@@ -30,6 +30,7 @@ class Chef
     attr_accessor :LOGLEVELS
     attr_accessor :ALLPARTS
     attr_accessor :ALLACTIONS
+		attr_accessor :prec_max
 
     def self.loglevels=(levels)
       @LOGLEVELS  = levels || [:trace, :debug, :step, :info, :warn, :error, :fatal, :todo]
@@ -58,7 +59,6 @@ class Chef
     self.loglevels  = nil
     self.allparts   = nil
     self.allactions = nil
-
 
     module ChopBase
       class ::TrueClass
@@ -150,8 +150,8 @@ class Chef
 
       # --------------------------------------------------------------------------------
       def parsePrecedence(v)
-        ::Chef::Knife.prec_max += 1
-        s = { v => ::Chef::Knife.prec_max }
+        @prec_max += 1
+        s = { v => @prec_max }
         match = v.match(%r/^(\S+):(\d+)$/)
         if match
           begin

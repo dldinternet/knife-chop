@@ -133,7 +133,7 @@ class Chef
         @config[:databags].each{ |b|
           match = b.match(%r/^(.*):(.*)$/)
           if match
-            want[match[1]] = parseOptionString(match[2],';')
+            want[match[1]] = parseOptionString(match[2],'[:;]')
           end
         }
         @logger.debug want.ai
@@ -143,7 +143,7 @@ class Chef
             name  = File.basename(d)
             regex = "^(#{want.keys.join('|')})"
             match = matches(name,regex)
-            if match
+            if match and want.has_key?(name)
               databags[name] = getPathSet(want[name], "data_bags/#{name}")
               @logger.debug "Data bags: (#{name}) #{databags[name].ai}"
             end
