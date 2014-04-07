@@ -1,15 +1,15 @@
 source "http://rubygems.org"
 gemspec
 ## Add dependencies required to use your gem here.
-gem 'awesome_print'
-gem 'colorize'
-gem 'logging'
-gem 'inifile'
+gem 'awesome_print', '> 0'
+gem 'colorize', '> 0'
+gem 'logging', '> 0'
+gem 'inifile', '>= 2.0.2'
 gem 'json', '>= 1.4.4' #, '<= 1.7.7'
 gem 'mixlib-config', '>= 1.1.2'
 gem 'chef'#, '= 11.6.2'
 gem 'unf' # For Fog
-gem 'knife-ec2'
+gem 'knife-ec2', '~> 0', '>= 0.6'
 #
 ## Add dependencies to develop your gem here.
 ## Include everything needed to run rake, tests, features, etc.
