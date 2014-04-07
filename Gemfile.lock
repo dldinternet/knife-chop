@@ -2,6 +2,16 @@ PATH
   remote: .
   specs:
     knife-chop (0.5.1)
+      awesome_print
+      chef
+      colorize
+      inifile
+      json (>= 1.4.4)
+      knife-chop
+      knife-ec2
+      logging
+      mixlib-config (>= 1.1.2)
+      unf
 
 GEM
   remote: http://rubygems.org/
@@ -195,7 +205,7 @@ DEPENDENCIES
   chef
   colorize
   inifile
-  jeweler (~> 1.8.8)
+  jeweler (~> 1.8, >= 1.8.8)
   json (>= 1.4.4)
   knife-chop!
   knife-ec2
