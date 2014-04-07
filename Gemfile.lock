@@ -1,15 +1,15 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.5.1)
-      awesome_print (> 0)
-      chef
-      colorize (> 0)
+    knife-chop (0.5.2)
+      awesome_print
+      chef (>= 11.6.2)
+      colorize
       inifile (>= 2.0.2)
       json (>= 1.4.4)
       knife-chop
-      knife-ec2 (~> 0, >= 0.6)
-      logging (> 0)
+      knife-ec2
+      logging
       mixlib-config (>= 1.1.2)
       unf
 
@@ -201,15 +201,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print
+  awesome_print (~> 1.2, >= 1.2.0)
   chef (>= 11.6.2)
-  colorize
-  inifile (>= 2.0.2)
+  colorize (~> 0.7, >= 0.7.1)
+  inifile (~> 2.0, >= 2.0.2)
   jeweler (~> 1.8, >= 1.8.8)
   json (>= 1.4.4)
   knife-chop!
   knife-ec2
-  logging
+  logging (~> 1.8, >= 1.8.2)
   mixlib-config (>= 1.1.2)
   rspec
   unf
