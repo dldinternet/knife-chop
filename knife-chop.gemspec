@@ -94,6 +94,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
       s.add_runtime_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
       s.add_development_dependency(%q<jeweler>, [">= 1.8.8", "~> 1.8"])
+      s.add_development_dependency(%q<rspec>, [">= 2.14.1", "~> 2.14"])
     else
       s.add_dependency(%q<knife-chop>, [">= 0"])
       s.add_dependency(%q<awesome_print>, [">= 1.2.0", "~> 1.2"])
@@ -105,8 +106,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<chef>, [">= 11.10.0", "~> 11.10"])
       s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
       s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
-      s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 1.8.8", "~> 1.8"])
+      s.add_dependency(%q<rspec>, [">= 2.14.1", "~> 2.14"])
     end
   else
     s.add_dependency(%q<knife-chop>, [">= 0"])
@@ -120,6 +121,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
     s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
     s.add_dependency(%q<jeweler>, [">= 1.8.8", "~> 1.8"])
+    s.add_dependency(%q<rspec>, [">= 2.14.1", "~> 2.14"])
   end
 end
 
