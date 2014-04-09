@@ -43,7 +43,7 @@ end
 
 require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
 desc "Build it, tag it and ship it"
-task :ship => [:clobber_package,:gem] do
+task :ship => [:clobber_package,:clobber_rdoc,:gem] do
 	sh("git add -A")
 	sh("git commit -m 'Ship #{::Knife::Chop::VERSION}'")
 	sh("git tag #{::Knife::Chop::VERSION}")
