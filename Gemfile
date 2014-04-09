@@ -19,6 +19,6 @@ group :development do
 #  gem "cucumber", ">= 0"
 #  gem "bundler", "~> 1.0"
 #  gem "rcov", ">= 0"
-#   gem 'jeweler', '~> 1.8', '>= 1.8.8'
+  gem 'jeweler', '>= 1.8.8'
 #   gem "rspec", '~> 2.14', '>= 2.14.1'
 end

@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 # stub: knife-chop 0.5.8 ruby lib
 
-Gem::Specification.new do |s|
+knife_chop_spec = Gem::Specification.new do |s|
   s.name = "knife-chop"
   s.version = "0.5.8"
 
