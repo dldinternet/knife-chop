@@ -79,10 +79,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.2.2"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
 
-  if s.respond_to? :specification_version then
+  if s.respond_to? :specification_version
     s.specification_version = 4
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0')
       s.add_runtime_dependency(%q<knife-chop>, [">= 0"])
       s.add_runtime_dependency(%q<awesome_print>, [">= 1.2.0", "~> 1.2"])
       s.add_runtime_dependency(%q<colorize>, [">= 0.7.1", "~> 0.7"])
