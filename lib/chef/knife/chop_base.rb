@@ -194,8 +194,6 @@ class Chef
             Chef::Knife::Bootstrap.load_deps
           end
 
-          banner "knife chop (options)"
-
           attr_reader   :argv
 
           # This will print an args summary.
