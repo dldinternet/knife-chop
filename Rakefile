@@ -18,7 +18,6 @@ Dir[File.expand_path("../*gemspec", __FILE__)].reverse.each do |gemspec_path|
 	Gem::PackageTask.new(gemspec).define
 end
 
-#require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
