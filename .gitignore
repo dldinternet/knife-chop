@@ -50,6 +50,7 @@ pkg
 
 # JetBrains IDE
 .idea
+*.iml
 
 # RVM
 .rvmrc
