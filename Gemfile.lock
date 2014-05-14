@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.6.1)
+    knife-chop (0.6.2)
       awesome_print (~> 1.2, >= 1.2.0)
-      chef (~> 11.10, >= 11.10.0)
+      chef (~> 11.12, >= 11.10.0)
       colorize (~> 0.7, >= 0.7.1)
       inifile (~> 2.0, >= 2.0.2)
       json (~> 1.8, >= 1.8.1)
@@ -200,10 +200,10 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print (~> 1.2, >= 1.2.0)
-  chef (~> 11.10, >= 11.10.0)
+  chef (~> 11.12, >= 11.12.0)
   colorize (~> 0.7, >= 0.7.1)
   inifile (~> 2.0, >= 2.0.2)
-  jeweler (>= 1.8.8)
+  jeweler (~> 2.0, >= 2.0.1)
   json (~> 1.8, >= 1.8.1)
   knife-chop!
   knife-ec2 (~> 0.6, >= 0.6.6)
