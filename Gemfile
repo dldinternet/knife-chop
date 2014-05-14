@@ -21,4 +21,7 @@ group :development do
 #  gem "rcov", ">= 0"
 #   gem 'jeweler', '>= 1.8.8'
 #   gem "rspec", '~> 2.14', '>= 2.14.1'
+# 	gem 'debase'
+	# gem 'ruby-debug-base19x'
+	# gem 'ruby-debug-ide'
 end

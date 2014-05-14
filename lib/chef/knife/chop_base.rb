@@ -151,6 +151,12 @@ class Chef
       # --------------------------------------------------------------------------------
       def parsePrecedence(v)
         @prec_max += 1
+        match = v.match(%r/^(json|rb|yaml)$/i)
+        unless match
+          m = "ERROR: Invalid precedence argument: #{v}. Accept only from this set: [json,rb,yaml]"
+          puts m
+          raise Exception.new(m)
+        end
         s = { v => @prec_max }
         match = v.match(%r/^(\S+):(\d+)$/)
         if match
@@ -650,7 +656,7 @@ class Chef
         set = {}
         chef = @config[:repo_path]
         raise ChopError.new "Oops! Where is the '#{chef}' directory? Also check cookbook path '#{@config[:cookbook_path]}'" unless File.directory?(chef)
-        abs = File.expand_path("#{chef}/#{path}")#.gsub(%r(^#{@chop_path}), '')
+        abs = File.realpath(File.expand_path("#{chef}/#{path}"))
         raise ChopError.new "Oops! Does 'chef/#{path}' directory exist?" unless File.directory?(abs)
         Dir.glob("#{abs}/*").each{ |f|
           match = File.basename(f).match(file_regex)
