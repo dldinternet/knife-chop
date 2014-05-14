@@ -25,6 +25,8 @@ class Chef
 
       include ChopBase
 
+      banner "knife chop translate (options)"
+
       # --------------------------------------------------------------------------------
       def run
         $stdout.sync = true

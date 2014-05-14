@@ -25,6 +25,8 @@ class Chef
 
       include ChopBase
 
+      banner "knife chop upload (options)"
+
       # --------------------------------------------------------------------------------
       def run
         $stdout.sync = true
@@ -77,11 +79,34 @@ class Chef
         if args[:aggregate] and @use_knife_api
           subc.name_args << xtra if xtra != ''
           subc.name_args << set.map{ |name,file|
-            file
+            extname  = File.extname(file)
+            extname.gsub!(%r/^\./,'')
+            case extname
+              when /^yaml$/i
+                begin
+                  json = File.join(File::SEPARATOR, [ Dir::Tmpname.tmpdir, Dir::Tmpname.make_tmpname([name, '.json'], nil) ])
+                  @logger.debug("#{name}.#{extname} => #{json}")
+                  require 'json'
+                  require 'yaml'
+
+                  yaml_s = YAML::load(IO.read(file))
+                  json_s = JSON.dump(yaml_s)
+                  IO.write(json,json_s)
+                rescue Exception => e
+                  raise ChopError.new("#{e.class.name} - #{e.message}")
+                end
+                json
+              when /^(rb|json)$/
+                # noop
+                file
+              else
+                raise ChopError.new("'#{extname}' files are not supported!")
+            end
           }
           subc.name_args.flatten!
           #cmd = callCmdProc(filp, cmd, set.map{|name,file| name}.to_s, set.map{|name,file| file}.join(' '))
           @logger.info "#{cmd} #{set.map{|name,file| file}.ai} ... "
+          @logger.info "#{cmd} #{subc.name_args.ai} ... "
           unless @config[:dry_run]
             begin
               subc.run

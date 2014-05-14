@@ -1,20 +1,8 @@
 #
-# Author:: Adam Jacob (<adam@opscode.com>)
-# Copyright:: Copyright (c) 2009 Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Author:: Christo De Lange <opscode@dldinternet.com>
+# Monkey patch for Chef::Knife::RoleFromFile
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+require 'chef/knife/role_from_file'
 
 class ::Chef::Knife::RoleFromFile
   # --------------------------------------------------------------------------------------------------------------------
@@ -26,17 +14,30 @@ class ::Chef::Knife::RoleFromFile
     @location = 'roles'
   end
 
-  def run
-    @name_args.each do |arg|
-      updated = loader.load_from("roles", arg)
+  # --------------------------------------------------------------------------------------------------------------------
+  private
+  # --------------------------------------------------------------------------------------------------------------------
 
-      updated.save
-
-      output(format_for_display(updated)) if config[:print_after]
-
-      ui.step("Updated Role #{updated.name}!")
+  # --------------------------------------------------------------------------------------------------------------------
+  def translate_all_roles
+    roles = find_all_roles
+    if roles.empty?
+      ui.fatal("Unable to find any role files in '#{roles_path}'")
+      exit(1)
+    end
+    roles.each do |env|
+      translate_role(env)
     end
   end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  def translate_role(env)
+    updated = loader.load_from("roles", env)
+    updated.translate(@config,env)
+    output(format_for_display(updated)) if config[:print_after]
+    ui.info("Translated Role #{updated.name}")
+  end
+
 end
 
 
