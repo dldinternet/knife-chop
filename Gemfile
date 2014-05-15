@@ -10,6 +10,7 @@ gem 'mixlib-config', '~> 2.1', '>= 2.1.0'
 gem 'chef', '~> 11.12', '>= 11.12.0'
 gem 'unf', '~> 0.1', '>= 0.1.4' # For Fog
 gem 'knife-ec2', '~> 0.6', '>= 0.6.6'
+gem 'safe_yaml'
 #
 ## Add dependencies to develop your gem here.
 ## Include everything needed to run rake, tests, features, etc.

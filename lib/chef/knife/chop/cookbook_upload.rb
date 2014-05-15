@@ -34,7 +34,7 @@ end
 
 class ::Chef::Knife::CookbookUpload
   def run
-    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.6.2'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\./)
+    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.6.2'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\.(6|8|10|12)/)
     # Sanity check before we load anything from the server
     unless config[:all]
       if @name_args.empty?
@@ -53,6 +53,7 @@ class ::Chef::Knife::CookbookUpload
     end
 
     assert_environment_valid!
+    warn_about_cookbook_shadowing
     version_constraints_to_update = {}
     upload_failures = 0
     upload_ok = 0
@@ -71,7 +72,7 @@ class ::Chef::Knife::CookbookUpload
       end
       begin
         upload(cbs, justify_width)
-      rescue ::Chef::Exceptions::CookbookFrozen
+      rescue Exceptions::CookbookFrozen
         ui.warn("Not updating version constraints for some cookbooks in the environment as the cookbook is frozen.")
       end
       ui.info("Uploaded all cookbooks.")
@@ -82,25 +83,35 @@ class ::Chef::Knife::CookbookUpload
         exit 1
       end
 
-      @cookbooks_to_upload = nil
       cookbooks_to_upload.each do |cookbook_name, cookbook|
         cookbook.freeze_version if config[:freeze]
         begin
           upload([cookbook], justify_width)
           upload_ok += 1
           version_constraints_to_update[cookbook_name] = cookbook.version
-        rescue ::Chef::Exceptions::CookbookNotFoundInRepo => e
+        rescue Exceptions::CookbookNotFoundInRepo => e
           upload_failures += 1
           ui.error("Could not find cookbook #{cookbook_name} in your cookbook path, skipping it")
           Log.debug(e)
           upload_failures += 1
-        rescue ::Chef::Exceptions::CookbookFrozen
+        rescue Exceptions::CookbookFrozen
           ui.warn("Not updating version constraints for #{cookbook_name} in the environment as the cookbook is frozen.")
           upload_failures += 1
         end
       end
 
       # BEGIN changes DLDInternet
+      # upload_failures += @name_args.length - @cookbooks_to_upload.length
+      #
+      # if upload_failures == 0
+      #   ui.info "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""}."
+      # elsif upload_failures > 0 && upload_ok > 0
+      #   ui.warn "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""} ok but #{upload_failures} " +
+      #               "cookbook#{upload_failures > 1 ? "s" : ""} upload failed."
+      # elsif upload_failures > 0 && upload_ok == 0
+      #   ui.error "Failed to upload #{upload_failures} cookbook#{upload_failures > 1 ? "s" : ""}."
+      #   exit 1
+      # end
       upload_skips = @name_args.length - @cookbooks_to_upload.length
 
       if upload_failures == 0
