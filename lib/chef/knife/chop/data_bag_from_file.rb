@@ -15,4 +15,25 @@ class ::Chef::Knife::DataBagFromFile
     @location = 'data_bags'
   end
 
+  # DLDInternet monkey patch of original
+  def load_data_bag_items(data_bag, items = nil)
+    items ||= find_all_data_bag_items(data_bag)
+    item_paths = normalize_item_paths(items)
+    item_paths.each do |item_path|
+      item = loader.load_from("#{data_bags_path}", data_bag, item_path)
+      item = if use_encryption
+               secret = read_secret
+               Chef::EncryptedDataBagItem.encrypt_data_bag_item(item, secret)
+             else
+               item
+             end
+      dbag = Chef::DataBagItem.new
+      dbag.data_bag(data_bag)
+      dbag.raw_data = item
+      dbag.save
+      # BEGIN changes DLDInternet
+      ui.info("Updated data_bag_item[#{dbag.data_bag}::#{dbag.id}]")
+      # END changes DLDInternet
+    end
+  end
 end
