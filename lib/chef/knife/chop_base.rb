@@ -658,16 +658,20 @@ class Chef
         raise ChopError.new "Oops! Where is the '#{chef}' directory? Also check cookbook path '#{@config[:cookbook_path]}'" unless File.directory?(chef)
         abs = File.realpath(File.expand_path("#{chef}/#{path}"))
         raise ChopError.new "Oops! Does 'chef/#{path}' directory exist?" unless File.directory?(abs)
-        Dir.glob("#{abs}/*").each{ |f|
-          match = File.basename(f).match(file_regex)
-          if match
-            name = match[1]
-            ext  = match[2]
-            set[ext] = {} unless set[ext]
-            @logger.trace "#{name} =~ #{regex}"
-            set[ext][name] = f if name.match(regex)
-          end
-        }
+        begin
+          Dir.glob("#{abs}/*").each{ |f|
+            match = File.basename(f).match(file_regex)
+            if match
+              name = match[1]
+              ext  = match[2]
+              set[ext] = {} unless set[ext]
+              @logger.trace "#{name} =~ #{regex}"
+              set[ext][name] = f if name.match(regex)
+            end
+          }
+        rescue RegexpError => e
+          raise ChopError.new "The regular expression attempting to match resources in '#{path}' is incorrect! #{e.message}"
+        end
         @logger.debug "getPathSet set=#{set.ai}"
         res = {}
         # Iterate extension sets in increasing precedence order ...
