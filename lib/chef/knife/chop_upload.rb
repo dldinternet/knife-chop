@@ -66,17 +66,18 @@ class Chef
           %(#{cmd} #{file})
         }
         cmd = callCmdProc(cmdp, rsrc,verb,xtra)
-
-        if @use_knife_api
+        _getsubcmd = lambda{ ||
           argv = "#{rsrc} #{verb}".split(%r(\s+))
           klass= Chef::Knife.subcommand_class_from(argv)
-          subc = klass.new()
+          subc = klass.new
           subc.config = @config.dup
           subc.config[:cookbook_path] = @config[:cookbook_path].map{|p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
           subc.ui = ::Chef::Knife::ChopUI.new(@logger,@config)
-        end
+          subc
+        }
 
         if args[:aggregate] and @use_knife_api
+          subc = _getsubcmd.call
           subc.name_args << xtra if xtra != ''
           subc.name_args << set.map{ |name,file|
             extname  = File.extname(file)
@@ -118,7 +119,7 @@ class Chef
         else
           set.each{ |name,file|
             cmd = callCmdProc(filp, cmd, name, file)
-						fLog = false
+
             if rsrc == 'cookbook'
 	            fLog = @logger.info "#{args[:environment]}:#{File.basename(file)} (Dependencies: #{@config[:depends]})"
 	          else
@@ -127,6 +128,7 @@ class Chef
 	          @logger.debug "... #{cmd}" if fLog
             if @use_knife_api
               unless @config[:dry_run]
+                subc = _getsubcmd.call
                 subc.name_args = rsrc == 'cookbook' ? [ name ] : [ file ]
                 subc.run
               end
@@ -202,7 +204,7 @@ class Chef
           if p.match(%r(^/))
             p
           else
-            File.expand_path("#{@config[:repo_path]}/#{p}")
+            File.realpath(File.expand_path("#{@config[:repo_path]}/#{p}"))
           end
         }
 
