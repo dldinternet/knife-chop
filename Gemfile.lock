@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.7.1)
+    knife-chop (0.7.2)
       awesome_print (~> 1.2, >= 1.2.0)
       chef (~> 11.12, >= 11.10.0)
       colorize (~> 0.7, >= 0.7.1)
@@ -10,6 +10,7 @@ PATH
       knife-ec2 (~> 0.6, >= 0.6.6)
       logging (~> 1.8, >= 1.8.2)
       mixlib-config (~> 2.1, >= 2.1.0)
+      safe_yaml (~> 1.0, >= 1.0.3)
       unf (~> 0.1, >= 0.1.4)
 
 GEM

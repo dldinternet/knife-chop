@@ -92,6 +92,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
       s.add_runtime_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
       s.add_runtime_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
+      s.add_runtime_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
     else
       s.add_dependency(%q<awesome_print>, [">= 1.2.0", "~> 1.2"])
       s.add_dependency(%q<colorize>, [">= 0.7.1", "~> 0.7"])
@@ -102,6 +103,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
       s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
       s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
+      s.add_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
     end
   else
     s.add_dependency(%q<awesome_print>, [">= 1.2.0", "~> 1.2"])
@@ -113,6 +115,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
     s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
     s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
+    s.add_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
   end
 end
 
