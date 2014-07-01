@@ -52,22 +52,3 @@ task :ship => [:clobber_package,:clobber_rdoc,:gem] do
 	end
 end
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "knife-chop"
-  gem.homepage = "http://github.com/dldinternet/knife-chop"
-  gem.license = "MIT"
-  gem.summary = %Q{Knife plugin to ease the upload and sync of Chef server assets}
-  gem.description = %Q{Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions.}
-  gem.email = "rubygems@dldinternet.com"
-  gem.authors = ["Christo De Lange"]
-  # dependencies defined in Gemfile
-
-  gem.files.exclude '.document'
-  gem.files.exclude '.rspec'
-  gem.files.exclude '.ruby-*'
-  gem.files.exclude '.idea/**'
-end
-Jeweler::RubygemsDotOrgTasks.new
-
