@@ -41,10 +41,19 @@ Rake::RDocTask.new do |rdoc|
 end
 
 require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
-desc "Build it, tag it and ship it"
+desc "Commit it, push it, build it, tag it and ship it"
 task :ship => [:clobber_package,:clobber_rdoc,:gem] do
 	sh("git add -A")
 	sh("git commit -m 'Ship #{::Knife::Chop::VERSION}'")
+	sh("git tag #{::Knife::Chop::VERSION}")
+	sh("git push origin --tags")
+	Dir[File.expand_path("../pkg/*.gem", __FILE__)].reverse.each do |built_gem|
+		sh("gem push #{built_gem}")
+	end
+end
+
+desc "Build it, tag it and ship it"
+task :push => [:clobber_package,:clobber_rdoc,:gem] do
 	sh("git tag #{::Knife::Chop::VERSION}")
 	sh("git push origin --tags")
 	Dir[File.expand_path("../pkg/*.gem", __FILE__)].reverse.each do |built_gem|
