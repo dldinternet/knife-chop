@@ -19,60 +19,60 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    "Gemfile",
-    "Gemfile.lock",
-    "LICENSE.txt",
-    "README.rdoc",
-    "Rakefile",
-    "TODO.rdoc",
-    "VERSION",
-    "bin/chop",
-    "knife-chop.gemspec",
-    "knife-chop.iml",
-    "lib/chef/knife/chop/chef_data_bag_item.rb",
-    "lib/chef/knife/chop/chef_environment.rb",
-    "lib/chef/knife/chop/chef_knife.rb",
-    "lib/chef/knife/chop/chef_part.rb",
-    "lib/chef/knife/chop/chef_role.rb",
-    "lib/chef/knife/chop/cookbook_upload.rb",
-    "lib/chef/knife/chop/data_bag_from_file.rb",
-    "lib/chef/knife/chop/environment_from_file.rb",
-    "lib/chef/knife/chop/errors.rb",
-    "lib/chef/knife/chop/logging.rb",
-    "lib/chef/knife/chop/role_from_file.rb",
-    "lib/chef/knife/chop/translate.rb",
-    "lib/chef/knife/chop/translate/eden.rb",
-    "lib/chef/knife/chop/translate/rbeautify.rb",
-    "lib/chef/knife/chop/ui.rb",
-    "lib/chef/knife/chop/version.rb",
-    "lib/chef/knife/chop_base.rb",
-    "lib/chef/knife/chop_translate.rb",
-    "lib/chef/knife/chop_upload.rb",
-    "lib/ruby-beautify/Gemfile",
-    "lib/ruby-beautify/LICENSE",
-    "lib/ruby-beautify/README.md",
-    "lib/ruby-beautify/RELEASE.md",
-    "lib/ruby-beautify/Rakefile",
-    "lib/ruby-beautify/bin/rbeautify",
-    "lib/ruby-beautify/lib/beautifier.rb",
-    "lib/ruby-beautify/lib/ruby-beautify.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_end.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_matcher.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/block_start.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/config/ruby.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/language.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/line.rb",
-    "lib/ruby-beautify/lib/ruby-beautify/version.rb",
-    "lib/ruby-beautify/ruby-beautify.gemspec",
-    "lib/ruby-beautify/spec/fixtures/ruby.yml",
-    "lib/ruby-beautify/spec/rbeautify/block_matcher_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/block_start_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/config/ruby_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify/line_spec.rb",
-    "lib/ruby-beautify/spec/rbeautify_spec.rb",
-    "lib/ruby-beautify/spec/spec_helper.rb",
-    "spec/knife-chop_spec.rb",
-    "spec/spec_helper.rb"
+    'Gemfile',
+    'Gemfile.lock',
+    'LICENSE.txt',
+    'README.rdoc',
+    'Rakefile',
+    'TODO.rdoc',
+    'VERSION',
+    'bin/chop',
+    'knife-chop.gemspec',
+    'knife-chop.iml',
+    'lib/chef/knife/chop/chef_data_bag_item.rb',
+    'lib/chef/knife/chop/chef_environment.rb',
+    'lib/chef/knife/chop/chef_knife.rb',
+    'lib/chef/knife/chop/chef_part.rb',
+    'lib/chef/knife/chop/chef_role.rb',
+    'lib/chef/knife/chop/cookbook_upload.rb',
+    'lib/chef/knife/chop/data_bag_from_file.rb',
+    'lib/chef/knife/chop/environment_from_file.rb',
+    'lib/chef/knife/chop/errors.rb',
+    'lib/chef/knife/chop/logging.rb',
+    'lib/chef/knife/chop/role_from_file.rb',
+    'lib/chef/knife/chop/translate.rb',
+    'lib/chef/knife/chop/translate/eden.rb',
+    'lib/chef/knife/chop/translate/rbeautify.rb',
+    'lib/chef/knife/chop/ui.rb',
+    'lib/chef/knife/chop/version.rb',
+    'lib/chef/knife/chop_base.rb',
+    'lib/chef/knife/chop_translate.rb',
+    'lib/chef/knife/chop_upload.rb',
+    'lib/ruby-beautify/Gemfile',
+    'lib/ruby-beautify/LICENSE',
+    'lib/ruby-beautify/README.md',
+    'lib/ruby-beautify/RELEASE.md',
+    'lib/ruby-beautify/Rakefile',
+    'lib/ruby-beautify/bin/rbeautify',
+    'lib/ruby-beautify/lib/beautifier.rb',
+    'lib/ruby-beautify/lib/ruby-beautify.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/block_end.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/block_matcher.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/block_start.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/config/ruby.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/language.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/line.rb',
+    'lib/ruby-beautify/lib/ruby-beautify/version.rb',
+    'lib/ruby-beautify/ruby-beautify.gemspec',
+    'lib/ruby-beautify/spec/fixtures/ruby.yml',
+    'lib/ruby-beautify/spec/rbeautify/block_matcher_spec.rb',
+    'lib/ruby-beautify/spec/rbeautify/block_start_spec.rb',
+    'lib/ruby-beautify/spec/rbeautify/config/ruby_spec.rb',
+    'lib/ruby-beautify/spec/rbeautify/line_spec.rb',
+    'lib/ruby-beautify/spec/rbeautify_spec.rb',
+    'lib/ruby-beautify/spec/spec_helper.rb',
+    'spec/knife-chop_spec.rb',
+    'spec/spec_helper.rb'
   ]
   s.homepage = "http://github.com/dldinternet/knife-chop"
   s.licenses = ["MIT"]
@@ -90,8 +90,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json>, [">= 1.8.1", "~> 1.8"])
       s.add_runtime_dependency(%q<mixlib-config>, [">= 2.1.0", "~> 2.1"])
       s.add_runtime_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
-      s.add_runtime_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
-      s.add_runtime_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
       s.add_runtime_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
     else
       s.add_dependency(%q<awesome_print>, [">= 1.2.0", "~> 1.2"])
@@ -101,8 +99,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json>, [">= 1.8.1", "~> 1.8"])
       s.add_dependency(%q<mixlib-config>, [">= 2.1.0", "~> 2.1"])
       s.add_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
-      s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
-      s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
       s.add_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
     end
   else
@@ -113,8 +109,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 1.8.1", "~> 1.8"])
     s.add_dependency(%q<mixlib-config>, [">= 2.1.0", "~> 2.1"])
     s.add_dependency(%q<chef>, [">= 11.10.0", "~> 11.12"])
-    s.add_dependency(%q<unf>, [">= 0.1.4", "~> 0.1"])
-    s.add_dependency(%q<knife-ec2>, [">= 0.6.6", "~> 0.6"])
     s.add_dependency(%q<safe_yaml>, [">= 1.0.3", "~> 1.0"])
   end
 end

@@ -8,8 +8,6 @@ gem 'inifile', '~> 2.0', '>= 2.0.2'
 gem 'json', '~> 1.8', '>= 1.8.1' #, '<= 1.7.7'
 gem 'mixlib-config', '~> 2.1', '>= 2.1.0'
 gem 'chef', '~> 11.12', '>= 11.12.0'
-gem 'unf', '~> 0.1', '>= 0.1.4' # For Fog
-gem 'knife-ec2', '~> 0.6', '>= 0.6.6'
 gem 'safe_yaml'
 #
 ## Add dependencies to develop your gem here.

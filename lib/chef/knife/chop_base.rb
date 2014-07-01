@@ -24,6 +24,8 @@ require 'chef/knife/chop/errors'
 require 'logging'
 
 class Chef
+  # noinspection RubyTooManyInstanceVariablesInspection
+  # noinspection RubyTooManyMethodsInspection
   class Knife
     attr_accessor :logger
     attr_accessor :verbosity
