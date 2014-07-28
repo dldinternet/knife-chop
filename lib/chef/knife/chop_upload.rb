@@ -90,8 +90,8 @@ class Chef
         rsrc = args[:resource]
         verb = args[:verb] || "from file"
         xtra = args[:extra] || ''
-        cmdp = args[:command] || lambda{|rsrc,verb,xtra|
-          %(knife #{rsrc} #{verb} #{xtra})
+        cmdp = args[:command] || lambda{|r,v,x|
+          %(knife #{r} #{v} #{x})
         }
         filp = args[:fileproc] || lambda{|cmd,name,file|
           # name not used/needed
@@ -161,7 +161,8 @@ class Chef
 	          @logger.debug "... #{cmd}" if fLog
             if @use_knife_api
               unless @config[:dry_run]
-                subc = _getsubcmd.call
+                #subc = _getsubcmd.call
+                subc = getKnifeSubCommand(rsrc,verb)
                 subc.name_args = rsrc == 'cookbook' ? [ name ] : [ file ]
                 subc.run
               end
