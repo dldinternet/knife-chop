@@ -64,10 +64,6 @@ class Chef
         error(message)
       end
 
-      def error(message)
-        msg(message)
-      end
-
       # Print a warning message
       def warn(message)
         msg(message)
@@ -90,6 +86,7 @@ class Chef
       end
 
       def shifted(name)
+        name = 'info' unless ::Logging::LEVELS.has_key?(name)
         num = ::Logging::LEVELS[name]+1
         case name
         when 'todo'

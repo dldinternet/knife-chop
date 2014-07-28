@@ -280,14 +280,14 @@ class Chef
                   :short        => "-P",
                   :long         => "--cookbook-path PATH",
                   :description  => "Cookbook search path, Default chef/cookbooks/:chef/vendor-cookbooks",
-                  :default      => ["cookbooks/","vendor-cookbooks"],
+                  :default      => ["cookbooks","vendor-cookbooks"],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v,'[:,]','parsePath')
                   }
           option  :repo_path,
                   :long         => "--repo-path PATH",
                   :description  => "Chef repo path, Default ./chef",
-                  :default      => "./chef",
+                  :default      => ".",
                   #:required     => true,
                   :proc         => lambda{|v|
                     File.expand_path(v)
@@ -307,12 +307,12 @@ class Chef
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   },
-                  :default      => ['web.*']
+                  :default      => ['.*']
           option  :databags,
                   :short        => "-b",
                   :long         => "--databags BAGS",
                   :description  => "Data bags to upload",
-                  :default      => ['aws:s3_.*_dev;s3_ro_.*','users:web.*;christo.*;tmiller.*'],
+                  :default      => ['.*:.*'],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   }
@@ -320,7 +320,7 @@ class Chef
                   :short        => "-r",
                   :long         => "--roles ROLES",
                   :description  => "Roles to upload",
-                  :default      => ["web.*"],
+                  :default      => [".*"],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   }
@@ -748,6 +748,18 @@ class Chef
             end
           end
         end
+      end
+
+      # --------------------------------------------------------------------------------
+      def getKnifeSubCommand(rsrc, verb)
+        # WARNING: Don't be clever ... rsrc and verb can each have one or more spaces ... argv = [rsrc, verb]
+        argv = "#{rsrc} #{verb}".split(%r(\s+))
+        klass= ::Chef::Knife.subcommand_class_from(argv)
+        subc = klass.new
+        subc.config = @config.dup
+        subc.config[:cookbook_path] = @config[:cookbook_path].map { |p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
+        subc.ui = ::Chef::Knife::ChopUI.new(@logger, @config)
+        subc
       end
 
       # --------------------------------------------------------------------------------

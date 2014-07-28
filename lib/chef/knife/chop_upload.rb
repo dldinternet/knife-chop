@@ -48,6 +48,38 @@ class Chef
       # --------------------------------------------------------------------------------
 
       # --------------------------------------------------------------------------------
+      def maybeCreateDataBag(bag)
+        subc = getKnifeSubCommand('data bag','show')
+        subc.name_args << bag
+        subc.name_args.flatten!
+        create = false
+        unless @config[:dry_run]
+          begin
+            subc.run
+          rescue => e
+            @logger.info "Searching for data bag yields: #{e.response.body if e.respond_to?('response')}"
+            @logger.warn "Create data bag #{bag}"
+            create = true
+          end
+        end
+        if create
+
+          subc = getKnifeSubCommand('data bag','create')
+          subc.name_args << bag
+          subc.name_args.flatten!
+
+          unless @config[:dry_run]
+            begin
+              subc.run
+            rescue => e
+              @logger.error "#{e.class.name} #{e.message} #{e.response.body if e.respond_to?('response')}"
+              raise e
+            end
+          end
+        end
+      end
+
+      # --------------------------------------------------------------------------------
       def uploadSet(set,args={})
         raise ChopInternalError.new "Incorrect use of uploadSet method from #{Kernel.caller[0].ai}" unless args.is_a?(Hash)
         raise ChopError.new "Must specify the :resource type" unless args[:resource]
@@ -66,18 +98,20 @@ class Chef
           %(#{cmd} #{file})
         }
         cmd = callCmdProc(cmdp, rsrc,verb,xtra)
-        _getsubcmd = lambda{ ||
-          argv = "#{rsrc} #{verb}".split(%r(\s+))
-          klass= Chef::Knife.subcommand_class_from(argv)
-          subc = klass.new
-          subc.config = @config.dup
-          subc.config[:cookbook_path] = @config[:cookbook_path].map{|p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
-          subc.ui = ::Chef::Knife::ChopUI.new(@logger,@config)
-          subc
-        }
+        # [2014-07-28 Christo] Distilled out a reusable method called getKnifeSubCommand
+        # _getsubcmd = lambda do |r,v|
+        #   argv = "#{r} #{v}".split(%r(\s+))
+        #   klass= Chef::Knife.subcommand_class_from(argv)
+        #   subc = klass.new
+        #   subc.config = @config.dup
+        #   subc.config[:cookbook_path] = @config[:cookbook_path].map { |p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
+        #   subc.ui = ::Chef::Knife::ChopUI.new(@logger, @config)
+        #   subc
+        # end
 
         if args[:aggregate] and @use_knife_api
-          subc = _getsubcmd.call
+          # subc = _getsubcmd.call(rsrc,verb)
+          subc = getKnifeSubCommand(rsrc,verb)
           subc.name_args << xtra if xtra != ''
           subc.name_args << set.map{ |name,file|
             extname  = File.extname(file)
@@ -105,7 +139,6 @@ class Chef
             end
           }
           subc.name_args.flatten!
-          #cmd = callCmdProc(filp, cmd, set.map{|name,file| name}.to_s, set.map{|name,file| file}.join(' '))
           @logger.info "#{cmd} #{set.map{|name,file| file}.ai} ... "
           @logger.info "#{cmd} #{subc.name_args.ai} ... "
           unless @config[:dry_run]
@@ -158,7 +191,7 @@ class Chef
         logStep "Upload data bags"
         want = Hash.new
         @config[:databags].each{ |b|
-          match = b.match(%r/^(.*):(.*)$/)
+          match = b.match(%r/^(.*?):(.*)$/)
           if match
             want[match[1]] = parseOptionString(match[2],'[:;]')
           end
@@ -170,14 +203,23 @@ class Chef
             name  = File.basename(d)
             regex = "^(#{want.keys.join('|')})"
             match = matches(name,regex)
-            if match and want.has_key?(name)
-              databags[name] = getPathSet(want[name], "data_bags/#{name}")
+            if match
+              if want.has_key?(name)
+                keys = [ name ]
+              else
+                keys = want.keys.select{|k| name.match(/^#{k}/) }
+              end
+              databags[name] = {}
+              keys.each do |key|
+                databags[name].merge! getPathSet(want[key], "data_bags/#{name}")
+              end
               @logger.debug "Data bags: (#{name}) #{databags[name].ai}"
             end
           end
         }
         @logger.info "Data bag list: (#{@config[:databags]}) #{databags.ai}"
         databags.each{ |bag,files|
+          maybeCreateDataBag(bag)
           uploadSet(files, :resource => 'data bag', :extra => bag, :aggregate => true)
         }
       end
