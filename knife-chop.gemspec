@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Christo De Lange"]
-  s.date = "2014-07-01"
   s.description = "Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions."
   s.email = "rubygems@dldinternet.com"
   s.executables = ["chop"]
@@ -20,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.homepage = "http://github.com/dldinternet/knife-chop"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.2.2"
   s.summary = "Knife plugin to ease the upload and sync of Chef server assets"
 
   s.add_dependency %q<awesome_print>, [">= 1.2.0", "~> 1.2"]
@@ -31,6 +29,8 @@ Gem::Specification.new do |s|
   s.add_dependency %q<mixlib-config>, [">= 2.1.0", "~> 2.1"]
   s.add_dependency %q<chef>, [">= 11.12.0", "~> 11.12"]
   s.add_dependency %q<safe_yaml>, [">= 0"]
+
+  s.add_development_dependency 'rubygems-tasks', '~> 0.2'
 
 end
 

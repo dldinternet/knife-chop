@@ -40,6 +40,11 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+require 'rake'
+
+require 'rubygems/tasks'
+Gem::Tasks.new
+
 require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
 desc "Commit it, push it, build it, tag it and ship it"
 task :ship => [:clobber_package,:clobber_rdoc,:gem] do
