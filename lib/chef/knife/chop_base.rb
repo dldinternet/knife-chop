@@ -548,18 +548,18 @@ class Chef
       def validate_options(options=nil)
         options = @config unless options
 
-        # Check for the necessary environment variables
-        logStep ("Check ENVironment")
-        env = ENV.to_hash
-        missing = {}
-        %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY KNIFE_CHEF_SERVER_URL KNIFE_CLIENT_KEY KNIFE_CLIENT_NAME).each { |k|
-          missing[k] = true unless ENV.has_key?(k)
-        }
-
-        if missing.count() > 0
-          #@logger.error "Missing keys: #{missing.keys.ai}"
-          raise ChopError.new("Missing environment variables: #{missing.keys}")
-        end
+        # # Check for the necessary environment variables
+        # logStep ("Check ENVironment")
+        # env = ENV.to_hash
+        # missing = {}
+        # %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY KNIFE_CHEF_SERVER_URL KNIFE_CLIENT_KEY KNIFE_CLIENT_NAME).each { |k|
+        #   missing[k] = true unless ENV.has_key?(k)
+        # }
+        #
+        # if missing.count() > 0
+        #   #@logger.error "Missing keys: #{missing.keys.ai}"
+        #   raise ChopError.new("Missing environment variables: #{missing.keys}")
+        # end
       end
 
       # -----------------------------------------------------------------------------
