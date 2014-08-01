@@ -34,7 +34,7 @@ end
 
 class ::Chef::Knife::CookbookUpload
   def run
-    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.6.2'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\.(6|8|10|12|14)/)
+    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.x'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\./)
     # Sanity check before we load anything from the server
     unless config[:all]
       if @name_args.empty?
