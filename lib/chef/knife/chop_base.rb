@@ -507,6 +507,7 @@ class Chef
         options = @config unless options
         if options.key?(:inifile)
           logStep "Parse INI file - #{options[:inifile]}"
+          options[:inifile] = File.expand_path(options[:inifile])
           raise ChopError.new("Cannot find inifile (#{options[:inifile]})") unless File.exist?(options[:inifile])
           raise ChopError.new("Recursive call to inifile == '#{options[:inifile]}'") if @inis.include?(options[:inifile])
           ini = nil

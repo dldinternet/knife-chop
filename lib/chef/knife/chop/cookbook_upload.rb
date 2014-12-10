@@ -34,7 +34,9 @@ end
 
 class ::Chef::Knife::CookbookUpload
   def run
-    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.x'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\./)
+    unless Chef::VERSION.match(%r/^(11|12)\./)
+      raise StandardError.new("I was crafted from Chef::VERSION == '11.x'. Please verify that #{self.class.name}.run is still relevant in your version == '#{Chef::VERSION}'!")
+    end
     # Sanity check before we load anything from the server
     unless config[:all]
       if @name_args.empty?
@@ -141,9 +143,13 @@ class ::Chef::Knife::CookbookUpload
     end
   end
 
+  if Chef::VERSION.split('\.')[0].to_i < 12
+    # DLDInternet monkey patch of original
   def upload(cookbooks, justify_width)
     cookbooks.each do |cb|
+      # BEGIN changes DLDInternet
       ui.step("Uploading #{cb.name.to_s.ljust(justify_width + 10)} [#{cb.version}]")
+      # END changes DLDInternet
       check_for_broken_links!(cb)
       check_for_dependencies!(cb)
     end
@@ -152,6 +158,6 @@ class ::Chef::Knife::CookbookUpload
     ui.error e
     raise
   end
-
+  end
 end
 

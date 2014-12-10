@@ -15,6 +15,7 @@ class ::Chef::Knife::DataBagFromFile
     @location = 'data_bags'
   end
 
+  if Chef::VERSION.split('\.')[0].to_i < 12
   # DLDInternet monkey patch of original
   def load_data_bag_items(data_bag, items = nil)
     items ||= find_all_data_bag_items(data_bag)
@@ -35,5 +36,7 @@ class ::Chef::Knife::DataBagFromFile
       ui.info("Updated data_bag_item[#{dbag.data_bag}::#{dbag.id}]")
       # END changes DLDInternet
     end
+
+  end
   end
 end
