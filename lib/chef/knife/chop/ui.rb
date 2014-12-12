@@ -35,7 +35,7 @@ class Chef
       #def define_log_methods( ui )
       def msg(message)
         caller = Kernel.caller[0]
-        match = %r/([-\.\/\(\)\w]+):(\d+)(?::in `(\w+)')?/o.match(caller)
+        match = caller.match(%r/([-\.\/\(\)\w]+):(\d+)(?::in `(\w+)')?/o)
         name = shifted(match[3])
         @logger.send(name, message)
       end
@@ -64,10 +64,6 @@ class Chef
         error(message)
       end
 
-      def error(message)
-        msg(message)
-      end
-
       # Print a warning message
       def warn(message)
         msg(message)
@@ -90,14 +86,15 @@ class Chef
       end
 
       def shifted(name)
+        name = 'info' unless ::Logging::LEVELS.has_key?(name)
         num = ::Logging::LEVELS[name]+1
         case name
         when 'todo'
           'error'
         when 'err'
           'error'
-        when 'info'
-          'debug'
+        # when 'info'
+        #   'debug'
         when 'debug'
           'trace'
         else

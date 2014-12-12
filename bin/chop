@@ -2,6 +2,9 @@
 
 require 'rubygems'
 
+require 'safe_yaml'
+SafeYAML::OPTIONS[:default_mode] = :safe
+
 # Borrowing from "whiches" gem ...
 cmd  = 'knife'
 exes = []

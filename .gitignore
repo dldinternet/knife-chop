@@ -50,9 +50,11 @@ pkg
 
 # JetBrains IDE
 .idea
+*.iml
 
 # RVM
 .rvmrc
 .ruby-version
 .ruby-gemset
 atlassian-ide-plugin.xml
+*.iml

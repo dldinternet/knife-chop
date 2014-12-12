@@ -40,8 +40,13 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+require 'rake'
+
+require 'rubygems/tasks'
+Gem::Tasks.new
+
 require File.dirname(__FILE__) + '/lib/chef/knife/chop/version'
-desc "Build it, tag it and ship it"
+desc "Commit it, push it, build it, tag it and ship it"
 task :ship => [:clobber_package,:clobber_rdoc,:gem] do
 	sh("git add -A")
 	sh("git commit -m 'Ship #{::Knife::Chop::VERSION}'")
@@ -52,22 +57,12 @@ task :ship => [:clobber_package,:clobber_rdoc,:gem] do
 	end
 end
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "knife-chop"
-  gem.homepage = "http://github.com/dldinternet/knife-chop"
-  gem.license = "MIT"
-  gem.summary = %Q{Knife plugin to ease the upload and sync of Chef server assets}
-  gem.description = %Q{Knife plugin to assist with the upload and sync of Chef server assets like roles, environments and cookbooks allowing for multiple parts to be uploaded at once to multiple environments. Resources can be matched with regular expressions.}
-  gem.email = "rubygems@dldinternet.com"
-  gem.authors = ["Christo De Lange"]
-  # dependencies defined in Gemfile
-
-  gem.files.exclude '.document'
-  gem.files.exclude '.rspec'
-  gem.files.exclude '.ruby-*'
-  gem.files.exclude '.idea/**'
+desc "Build it, tag it and ship it"
+task :push => [:clobber_package,:clobber_rdoc,:gem] do
+	sh("git tag #{::Knife::Chop::VERSION}")
+	sh("git push origin --tags")
+	Dir[File.expand_path("../pkg/*.gem", __FILE__)].reverse.each do |built_gem|
+		sh("gem push #{built_gem}")
+	end
 end
-Jeweler::RubygemsDotOrgTasks.new
 

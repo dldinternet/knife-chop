@@ -24,6 +24,8 @@ require 'chef/knife/chop/errors'
 require 'logging'
 
 class Chef
+  # noinspection RubyTooManyInstanceVariablesInspection
+  # noinspection RubyTooManyMethodsInspection
   class Knife
     attr_accessor :logger
     attr_accessor :verbosity
@@ -177,7 +179,6 @@ class Chef
         includer.class_eval do
 
           deps do
-            require 'fog'
             require 'readline'
             require 'colorize'
             require 'inifile'
@@ -279,14 +280,14 @@ class Chef
                   :short        => "-P",
                   :long         => "--cookbook-path PATH",
                   :description  => "Cookbook search path, Default chef/cookbooks/:chef/vendor-cookbooks",
-                  :default      => ["cookbooks/","vendor-cookbooks"],
+                  :default      => ["cookbooks","vendor-cookbooks"],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v,'[:,]','parsePath')
                   }
           option  :repo_path,
                   :long         => "--repo-path PATH",
                   :description  => "Chef repo path, Default ./chef",
-                  :default      => "./chef",
+                  :default      => ".",
                   #:required     => true,
                   :proc         => lambda{|v|
                     File.expand_path(v)
@@ -306,12 +307,12 @@ class Chef
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   },
-                  :default      => ['web.*']
+                  :default      => ['.*']
           option  :databags,
                   :short        => "-b",
                   :long         => "--databags BAGS",
                   :description  => "Data bags to upload",
-                  :default      => ['aws:s3_.*_dev;s3_ro_.*','users:web.*;christo.*;tmiller.*'],
+                  :default      => ['.*:.*'],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   }
@@ -319,7 +320,7 @@ class Chef
                   :short        => "-r",
                   :long         => "--roles ROLES",
                   :description  => "Roles to upload",
-                  :default      => ["web.*"],
+                  :default      => [".*"],
                   :proc         => lambda{|v|
                     $CHOP.parseOptionString(v)
                   }
@@ -506,6 +507,7 @@ class Chef
         options = @config unless options
         if options.key?(:inifile)
           logStep "Parse INI file - #{options[:inifile]}"
+          options[:inifile] = File.expand_path(options[:inifile])
           raise ChopError.new("Cannot find inifile (#{options[:inifile]})") unless File.exist?(options[:inifile])
           raise ChopError.new("Recursive call to inifile == '#{options[:inifile]}'") if @inis.include?(options[:inifile])
           ini = nil
@@ -514,7 +516,7 @@ class Chef
             @inis << options[:inifile]
             ini['global'].each { |key, value|
               #puts "#{key}=#{value}"
-              ENV[key]=value
+              ENV[key]= value.nil? ? '' : value
             }
             argv=[]
             cli = ini['cli'] || []
@@ -547,18 +549,18 @@ class Chef
       def validate_options(options=nil)
         options = @config unless options
 
-        # Check for the necessary environment variables
-        logStep ("Check ENVironment")
-        env = ENV.to_hash
-        missing = {}
-        %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY KNIFE_CHEF_SERVER_URL KNIFE_CLIENT_KEY KNIFE_CLIENT_NAME).each { |k|
-          missing[k] = true unless ENV.has_key?(k)
-        }
-
-        if missing.count() > 0
-          #@logger.error "Missing keys: #{missing.keys.ai}"
-          raise ChopError.new("Missing environment variables: #{missing.keys}")
-        end
+        # # Check for the necessary environment variables
+        # logStep ("Check ENVironment")
+        # env = ENV.to_hash
+        # missing = {}
+        # %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY KNIFE_CHEF_SERVER_URL KNIFE_CLIENT_KEY KNIFE_CLIENT_NAME).each { |k|
+        #   missing[k] = true unless ENV.has_key?(k)
+        # }
+        #
+        # if missing.count() > 0
+        #   #@logger.error "Missing keys: #{missing.keys.ai}"
+        #   raise ChopError.new("Missing environment variables: #{missing.keys}")
+        # end
       end
 
       # -----------------------------------------------------------------------------
@@ -658,16 +660,20 @@ class Chef
         raise ChopError.new "Oops! Where is the '#{chef}' directory? Also check cookbook path '#{@config[:cookbook_path]}'" unless File.directory?(chef)
         abs = File.realpath(File.expand_path("#{chef}/#{path}"))
         raise ChopError.new "Oops! Does 'chef/#{path}' directory exist?" unless File.directory?(abs)
-        Dir.glob("#{abs}/*").each{ |f|
-          match = File.basename(f).match(file_regex)
-          if match
-            name = match[1]
-            ext  = match[2]
-            set[ext] = {} unless set[ext]
-            @logger.trace "#{name} =~ #{regex}"
-            set[ext][name] = f if name.match(regex)
-          end
-        }
+        begin
+          Dir.glob("#{abs}/*").each{ |f|
+            match = File.basename(f).match(file_regex)
+            if match
+              name = match[1]
+              ext  = match[2]
+              set[ext] = {} unless set[ext]
+              @logger.trace "#{name} =~ #{regex}"
+              set[ext][name] = f if name.match(regex)
+            end
+          }
+        rescue RegexpError => e
+          raise ChopError.new "The regular expression attempting to match resources in '#{path}' is incorrect! #{e.message}"
+        end
         @logger.debug "getPathSet set=#{set.ai}"
         res = {}
         # Iterate extension sets in increasing precedence order ...
@@ -685,7 +691,6 @@ class Chef
           end
         }
         set = res
-        set
       end
 
       # --------------------------------------------------------------------------------
@@ -744,6 +749,18 @@ class Chef
             end
           end
         end
+      end
+
+      # --------------------------------------------------------------------------------
+      def getKnifeSubCommand(rsrc, verb)
+        # WARNING: Don't be clever ... rsrc and verb can each have one or more spaces ... argv = [rsrc, verb]
+        argv = "#{rsrc} #{verb}".split(%r(\s+))
+        klass= ::Chef::Knife.subcommand_class_from(argv)
+        subc = klass.new
+        subc.config = @config.dup
+        subc.config[:cookbook_path] = @config[:cookbook_path].map { |p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
+        subc.ui = ::Chef::Knife::ChopUI.new(@logger, @config)
+        subc
       end
 
       # --------------------------------------------------------------------------------

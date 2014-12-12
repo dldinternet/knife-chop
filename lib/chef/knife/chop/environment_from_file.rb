@@ -15,6 +15,16 @@ class ::Chef::Knife::EnvironmentFromFile
     @location = 'environments'
   end
 
+  # DLDInternet monkey patch of original
+  def load_environment(env)
+    updated = loader.load_from("environments", env)
+    updated.save
+    output(format_for_display(updated)) if config[:print_after]
+    # BEGIN DLDInternet change
+    ui.step("Updated Environment #{updated.name}")
+    # END DLDInternet change
+  end
+
   # --------------------------------------------------------------------------------------------------------------------
   private
   # --------------------------------------------------------------------------------------------------------------------
@@ -36,7 +46,7 @@ class ::Chef::Knife::EnvironmentFromFile
     updated = loader.load_from("environments", env)
     updated.translate(@config,env)
     output(format_for_display(updated)) if config[:print_after]
-    ui.info("Translated Environment #{updated.name}")
+    ui.step("Translated Environment #{updated.name}")
   end
 
 end

@@ -34,7 +34,9 @@ end
 
 class ::Chef::Knife::CookbookUpload
   def run
-    raise StandardError.new("I was crafted from Chef::Knife::VERSION == '11.6.2'. Please verify that #{self.class.name}.run is still relevant in your version '#{Chef::VERSION}'!") unless Chef::VERSION.match(%r/^11\.(6|8|10|12)/)
+    unless Chef::VERSION.match(%r/^(11|12)\./)
+      raise StandardError.new("I was crafted from Chef::VERSION == '11.x'. Please verify that #{self.class.name}.run is still relevant in your version == '#{Chef::VERSION}'!")
+    end
     # Sanity check before we load anything from the server
     unless config[:all]
       if @name_args.empty?
@@ -44,7 +46,7 @@ class ::Chef::Knife::CookbookUpload
       end
     end
 
-    config[:cookbook_path] ||= Chef::Config[:cookbook_path]
+    config[:cookbook_path] ||= ::Chef::Config[:cookbook_path]
 
     if @name_args.empty? and ! config[:all]
       show_usage
@@ -60,7 +62,7 @@ class ::Chef::Knife::CookbookUpload
 
     # Get a list of cookbooks and their versions from the server
     # to check for the existence of a cookbook's dependencies.
-    @server_side_cookbooks = Chef::CookbookVersion.list_all_versions
+    @server_side_cookbooks = ::Chef::CookbookVersion.list_all_versions
     justify_width = @server_side_cookbooks.map {|name| name.size}.max.to_i + 2
     if config[:all]
       cookbook_repo.load_cookbooks
@@ -75,7 +77,7 @@ class ::Chef::Knife::CookbookUpload
       rescue Exceptions::CookbookFrozen
         ui.warn("Not updating version constraints for some cookbooks in the environment as the cookbook is frozen.")
       end
-      ui.info("Uploaded all cookbooks.")
+      ui.step("Uploaded all cookbooks.")
     else
       if @name_args.empty?
         show_usage
@@ -91,11 +93,11 @@ class ::Chef::Knife::CookbookUpload
           version_constraints_to_update[cookbook_name] = cookbook.version
         rescue Exceptions::CookbookNotFoundInRepo => e
           upload_failures += 1
-          ui.error("Could not find cookbook #{cookbook_name} in your cookbook path, skipping it")
+          ui.fatal("Could not find cookbook #{cookbook_name} in your cookbook path, skipping it")
           Log.debug(e)
           upload_failures += 1
-        rescue Exceptions::CookbookFrozen
-          ui.warn("Not updating version constraints for #{cookbook_name} in the environment as the cookbook is frozen.")
+        rescue ::Chef::Exceptions::CookbookFrozen
+          ui.error("Not updating version constraints for #{cookbook_name} in the environment as the cookbook is frozen.")
           upload_failures += 1
         end
       end
@@ -106,7 +108,7 @@ class ::Chef::Knife::CookbookUpload
       # if upload_failures == 0
       #   ui.info "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""}."
       # elsif upload_failures > 0 && upload_ok > 0
-      #   ui.warn "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""} ok but #{upload_failures} " +
+      #   ui.warn "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""} but #{upload_failures} " +
       #               "cookbook#{upload_failures > 1 ? "s" : ""} upload failed."
       # elsif upload_failures > 0 && upload_ok == 0
       #   ui.error "Failed to upload #{upload_failures} cookbook#{upload_failures > 1 ? "s" : ""}."
@@ -118,19 +120,19 @@ class ::Chef::Knife::CookbookUpload
         if upload_skips == 0
           ui.step "Uploaded #{upload_ok} cookbook".plural(upload_ok)+"."
         elsif upload_skips > 0 && upload_ok > 0
-          ui.step "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included."
+          ui.step "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included."
         elsif upload_ok == 0
-          ui.error "Did not upload any cookbooks."
+          ui.fatal "Did not upload any cookbooks."
           exit 1
         end
       elsif upload_failures > 0 && upload_ok > 0
         if upload_skips == 0
-          ui.warn "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
+          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
         elsif upload_skips > 0
-          ui.warn "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included and #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
+          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included and #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
         end
       elsif upload_failures > 0 && upload_ok == 0
-        ui.error "Failed to upload #{upload_failures} #{'cookbook'.plural(upload_failures)}."
+        ui.fatal "Failed to upload #{upload_failures} #{'cookbook'.plural(upload_failures)}."
         exit 1
       end
 			# END Changes DLDInternet
@@ -141,9 +143,13 @@ class ::Chef::Knife::CookbookUpload
     end
   end
 
+  if Chef::VERSION.split('\.')[0].to_i < 12
+    # DLDInternet monkey patch of original
   def upload(cookbooks, justify_width)
     cookbooks.each do |cb|
+      # BEGIN changes DLDInternet
       ui.step("Uploading #{cb.name.to_s.ljust(justify_width + 10)} [#{cb.version}]")
+      # END changes DLDInternet
       check_for_broken_links!(cb)
       check_for_dependencies!(cb)
     end
@@ -152,6 +158,6 @@ class ::Chef::Knife::CookbookUpload
     ui.error e
     raise
   end
-
+  end
 end
 
