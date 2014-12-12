@@ -14,6 +14,18 @@ class ::Chef::Knife::RoleFromFile
     @location = 'roles'
   end
 
+  def run
+    @name_args.each do |arg|
+      updated = loader.load_from("roles", arg)
+
+      updated.save
+
+      output(format_for_display(updated)) if config[:print_after]
+
+      ui.info("Updated Role #{updated.name}!")
+    end
+  end
+
   # --------------------------------------------------------------------------------------------------------------------
   private
   # --------------------------------------------------------------------------------------------------------------------
