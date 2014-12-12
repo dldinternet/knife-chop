@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency %q<inifile>, [">= 2.0.2", "~> 2.0"]
   s.add_dependency %q<json>, [">= 1.8.1", "~> 1.8"]
   s.add_dependency %q<mixlib-config>, [">= 2.1.0", "~> 2.1"]
-  s.add_dependency %q<chef>, [">= 11.12.0", "~> 11.12"]
+  s.add_dependency %q<chef>, [">= 11.16.0", "~> 11.16"]
   s.add_dependency %q<safe_yaml>, [">= 0"]
 
   s.add_development_dependency 'rubygems-tasks', '~> 0.2'
