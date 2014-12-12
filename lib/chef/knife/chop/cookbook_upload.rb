@@ -108,7 +108,7 @@ class ::Chef::Knife::CookbookUpload
       # if upload_failures == 0
       #   ui.info "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""}."
       # elsif upload_failures > 0 && upload_ok > 0
-      #   ui.warn "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""} ok but #{upload_failures} " +
+      #   ui.warn "Uploaded #{upload_ok} cookbook#{upload_ok > 1 ? "s" : ""} but #{upload_failures} " +
       #               "cookbook#{upload_failures > 1 ? "s" : ""} upload failed."
       # elsif upload_failures > 0 && upload_ok == 0
       #   ui.error "Failed to upload #{upload_failures} cookbook#{upload_failures > 1 ? "s" : ""}."
@@ -120,16 +120,16 @@ class ::Chef::Knife::CookbookUpload
         if upload_skips == 0
           ui.step "Uploaded #{upload_ok} cookbook".plural(upload_ok)+"."
         elsif upload_skips > 0 && upload_ok > 0
-          ui.step "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included."
+          ui.step "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included."
         elsif upload_ok == 0
           ui.fatal "Did not upload any cookbooks."
           exit 1
         end
       elsif upload_failures > 0 && upload_ok > 0
         if upload_skips == 0
-          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
+          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
         elsif upload_skips > 0
-          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} ok but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included and #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
+          ui.error "Uploaded #{upload_ok} #{'cookbook'.plural(upload_ok)} but #{upload_skips} #{'cookbook'.plural(upload_skips)} were not included and #{upload_failures} #{'cookbook'.plural(upload_failures)} failed upload."
         end
       elsif upload_failures > 0 && upload_ok == 0
         ui.fatal "Failed to upload #{upload_failures} #{'cookbook'.plural(upload_failures)}."

@@ -516,7 +516,7 @@ class Chef
             @inis << options[:inifile]
             ini['global'].each { |key, value|
               #puts "#{key}=#{value}"
-              ENV[key]=value
+              ENV[key]= value.nil? ? '' : value
             }
             argv=[]
             cli = ini['cli'] || []

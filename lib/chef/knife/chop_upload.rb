@@ -98,19 +98,8 @@ class Chef
           %(#{cmd} #{file})
         }
         cmd = callCmdProc(cmdp, rsrc,verb,xtra)
-        # [2014-07-28 Christo] Distilled out a reusable method called getKnifeSubCommand
-        # _getsubcmd = lambda do |r,v|
-        #   argv = "#{r} #{v}".split(%r(\s+))
-        #   klass= Chef::Knife.subcommand_class_from(argv)
-        #   subc = klass.new
-        #   subc.config = @config.dup
-        #   subc.config[:cookbook_path] = @config[:cookbook_path].map { |p| p.match(%r(^/)) ? p : "#{@config[:repo_path]}/#{p}" } #.join(::File::PATH_SEPARATOR)
-        #   subc.ui = ::Chef::Knife::ChopUI.new(@logger, @config)
-        #   subc
-        # end
 
         if args[:aggregate] and @use_knife_api
-          # subc = _getsubcmd.call(rsrc,verb)
           subc = getKnifeSubCommand(rsrc,verb)
           subc.name_args << xtra if xtra != ''
           subc.name_args << set.map{ |name,file|
@@ -132,7 +121,6 @@ class Chef
                 end
                 json
               when /^(rb|json)$/
-                # noop
                 file
               else
                 raise ChopError.new("'#{extname}' files are not supported!")
@@ -161,9 +149,10 @@ class Chef
 	          @logger.debug "... #{cmd}" if fLog
             if @use_knife_api
               unless @config[:dry_run]
-                #subc = _getsubcmd.call
                 subc = getKnifeSubCommand(rsrc,verb)
                 subc.name_args = rsrc == 'cookbook' ? [ name ] : [ file ]
+                cb2ul = subc.cookbooks_to_upload
+                @logger.info "#{cb2ul.size} Cookbooks to load: #{cb2ul.keys}"
                 subc.run
               end
             else
