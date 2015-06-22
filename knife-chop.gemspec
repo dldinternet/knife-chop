@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'json',          [">= 1.8.1", "~> 1.8"]
   s.add_dependency 'mixlib-config', [">= 2.1.0", "~> 2.1"]
   s.add_dependency 'safe_yaml',     [">= 1.0.4", '~> 1.0']
-  s.add_dependency 'ffi-yajl',      ['~> 1.2']
+  s.add_dependency 'ffi-yajl',      ['~> 2.1']
 
   s.add_development_dependency 'rubygems-tasks', '~> 0'
 
