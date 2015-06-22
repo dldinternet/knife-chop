@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-chop (0.9.3)
+    knife-chop (0.9.4)
       awesome_print (~> 1.2, >= 1.2.0)
       colorize (~> 0.7, >= 0.7.1)
       ffi-yajl (~> 2.1)
