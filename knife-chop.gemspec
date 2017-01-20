@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'colorize',      [">= 0.7.1", "~> 0.7"]
   s.add_dependency 'logging',       [">= 1.8.2", "~> 1.8"]
   s.add_dependency 'inifile',       [">= 3.0.0", "~> 3.0"]
-  # s.add_dependency 'chef',          [">= 12.0", "~> 12.0"]
+  s.add_dependency 'chef',          [">= 10.0", "< 12.0"]
   s.add_dependency 'json',          [">= 1.8.1", "~> 1.8"]
   s.add_dependency 'mixlib-config', [">= 2.1.0", "~> 2.1"]
   s.add_dependency 'safe_yaml',     [">= 1.0.4", '~> 1.0']
