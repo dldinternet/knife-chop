@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'awesome_print', [">= 1.2.0", "~> 1.2"]
   s.add_dependency 'colorize',      [">= 0.7.1", "~> 0.7"]
-  s.add_dependency 'logging',       [">= 1.8.2", "~> 1.8"]
+  s.add_dependency 'logging',       [">= 2.0.0", "~> 2.0"]
   s.add_dependency 'inifile',       [">= 3.0.0", "~> 3.0"]
   s.add_dependency 'chef',          [">= 12.17", "< 13.0"]
   s.add_dependency 'json',          [">= 1.8.1", "~> 1.8"]

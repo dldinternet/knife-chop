@@ -54,6 +54,12 @@ class Chef
           end
         end
 
+        unless ::Logging::VERSION =~ /^2/
+          def caller_tracing
+            @trace
+          end
+        end
+
         def logEvent(evt)
           log_event evt
         end
@@ -94,6 +100,13 @@ class Chef
             'x' => :ndc,
             'C' => :file_line,
         }.freeze
+
+        if ::Logging::VERSION =~ /^2/
+          class FormatMethodBuilder
+            DIRECTIVE_TABLE = ::Logging::Layouts::Pattern::DIRECTIVE_TABLE
+            COLOR_ALIAS_TABLE = ::Logging::Layouts::Pattern::COLOR_ALIAS_TABLE
+          end
+        end
 
       ensure
         $VERBOSE = verbose
@@ -232,7 +245,14 @@ class Chef
               logger.add_appenders appender
 
               logger.level = args[:log_level] ? args[:log_level] : :warn
-              logger.trace = true if args[:trace]
+              # logger.trace = true if args[:trace]
+              if args[:trace]
+                if ::Logging::VERSION =~ /^2/
+                  logger.caller_tracing = true
+                else
+                  logger.trace = true
+                end
+              end
               @args = args
             rescue Gem::LoadError
               logger = FakeLogger.new
