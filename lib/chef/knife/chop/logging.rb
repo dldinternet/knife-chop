@@ -127,7 +127,7 @@ class Chef
 
       # -----------------------------------------------------------------------------
       def logStep(msg)
-        if logger = getLogger(@args,'logStep')
+        if logger = getLogger(@args || @config,'logStep')
           logger.step "Resource #{@step+=1}: #{msg} ..."
         end
       end
@@ -165,21 +165,27 @@ class Chef
 
             begin
               ::Logging.init :trace, :debug, :info, :step, :warn, :error, :fatal, :todo unless defined? ::Logging::MAX_LEVEL_LENGTH
-              if args[:origins] and args[:origins][:log_level]
-                if (::Logging::LEVELS[args[:log_level].to_s] and ::Logging::LEVELS[args[:log_level].to_s] < 2)
-                  #puts "#{args[:log_level].to_s} = #{::Logging::LEVELS[args[:log_level].to_s]}".light_yellow
-                  puts "#{args[:origins][:log_level]} says #{args[:log_level]}".light_yellow
-                else
-                  from = ''
-                end
+              if !args[:origins] && @origins
+                args[:origins] = @origins
               end
-              l_opts = args[:log_opts].call(::Logging::MAX_LEVEL_LENGTH) || {
-                  :pattern      => "#{from}%d %#{::Logging::MAX_LEVEL_LENGTH}l: %m\n",
+              if args[:origins] and args[:origins][:log_level]
+                args[:from] = "#{args[:origins][:log_level] rescue @origins[:log_level]} "
+              else
+                args[:from] = ''
+              end
+              # @config[:log_opts] = lambda{|mlll| {
+              #     :pattern      => "%#{mlll}l: %m %C\n",
+              #     :date_pattern => '%Y-%m-%d %H:%M:%S',
+              #   }
+              # }
+              #
+              l_opts = args[:log_opts].call(::Logging::MAX_LEVEL_LENGTH) rescue {
+                  :pattern      => "#{args[:from]}%d %#{::Logging::MAX_LEVEL_LENGTH}l: %m\n",
                   :date_pattern => '%Y-%m-%d %H:%M:%S',
               }
               logger = ::Logging.logger( STDOUT, l_opts)
-              l_opts = args[:log_opts].call(::Logging::MAX_LEVEL_LENGTH) || {
-                  :pattern      => "#{from}%d %#{::Logging::MAX_LEVEL_LENGTH}l: %m %C\n",
+              l_opts = args[:log_opts].call(::Logging::MAX_LEVEL_LENGTH) rescue {
+                  :pattern      => "#{args[:from]}%d %#{::Logging::MAX_LEVEL_LENGTH}l: %m %C\n",
                   :date_pattern => '%Y-%m-%d %H:%M:%S',
               }
               layout = ::Logging::Layouts::Pattern.new(l_opts)
@@ -207,13 +213,13 @@ class Chef
               end
 
               scheme = ::Logging::ColorScheme.new( 'christo', :levels => {
-                  :trace => [:blue, :on_white],
+                  :trace => :light_blue,
                   :debug => :cyan,
                   :info  => :green,
                   :step  => :green,
                   :warn  => :yellow,
                   :error => :red,
-                  :fatal => [:red, :on_white],
+                  :fatal => :light_red,
                   :todo  => :purple,
               }).scheme
               scheme[:todo]  = "\e[38;5;55m"

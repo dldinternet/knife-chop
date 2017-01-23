@@ -243,6 +243,7 @@ class Chef
         cmdp = lambda{ |resource,verb,xtra|
           "#{resource} #{verb} #{xtra} --cookbook-path #{cbpaths.join(File::PATH_SEPARATOR)}"
         }
+        @logger.error "Unable to upload cookbooks. Environment list is empty!" unless environments.size > 0
         environments.each{ |name,file|
           @logger.info "Environment: #{name}"
           filp = lambda{ |cbcmd,cbname,cbfile|

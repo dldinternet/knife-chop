@@ -427,7 +427,7 @@ class Chef
       def parse_options(args,source=nil)
         argv = super(args)
 
-        @config = parse_and_validate_options(@config,source ? source : "ARGV - #{__LINE__}")
+        @config = parse_and_validate_options(@config,source ? source : "ARGV - #{File.basename(__FILE__)}:#{__LINE__}")
         v = @config[:depends]
         m = (v.is_a?(String) && v.downcase.match(%r/^(no|false|disable|0)/) )
         @config[:depends] = (v === true) || (m.nil? ? true : false)
@@ -469,7 +469,7 @@ class Chef
       # --------------------------------------------------------------------------------
       def configure_chef
         super
-        @config[:log_opts] = lambda{|mlll| {
+        @config[:log_opts] ||= lambda{|mlll| {
             :pattern      => "%#{mlll}l: %m %C\n",
             :date_pattern => '%Y-%m-%d %H:%M:%S',
           }
@@ -515,8 +515,8 @@ class Chef
             ini = IniFile.load(options[:inifile])
             @inis << options[:inifile]
             ini['global'].each { |key, value|
-              #puts "#{key}=#{value}"
-              ENV[key]= value.nil? ? '' : value
+              logger.trace "#{key}=#{value} (#{value.class.name})"
+              ENV[key]= value.nil? ? '' : value.to_s
             }
             argv=[]
             cli = ini['cli'] || []
@@ -529,6 +529,7 @@ class Chef
             end
           rescue => e
             puts e.message.light_red
+            logger.trace e.backtrace.ai
             raise e
           end
         end
